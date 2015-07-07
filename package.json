@@ -1,0 +1,26 @@
+{
+  "name": "angular-template",
+  "version": "1.0.0",
+  "description": "Template for new Angular applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiren/angular-template.git"
+  },
+  "private": true,
+  "keywords": [
+    "angular"
+  ],
+  "author": "Thiren Bunsee <thirenbunsee@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiren/angular-template/issues"
+  },
+  "homepage": "https://github.com/thiren/angular-template#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
