@@ -1,0 +1,9 @@
+{
+    "preset": "google",
+    "disallowSpacesInAnonymousFunctionExpression": null,
+    "excludeFiles": [
+        "bower_components",
+        "node_modules/**",
+        "test/**"
+    ]
+}
