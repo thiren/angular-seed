@@ -1,7 +1,7 @@
 {
-  "name": "angular-template",
+  "name": "angular-seed",
   "version": "1.0.0",
-  "homepage": "https://github.com/thiren/angular-template",
+  "homepage": "https://github.com/thiren/angular-seed",
   "authors": [
     "Thiren Bunsee <thirenbunsee@gmail.com>"
   ],
@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.1"
+    "angular": "~1.4.7"
   }
 }
