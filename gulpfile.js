@@ -1,13 +1,15 @@
 'use strict';
 
 var gulp = require('gulp');
+var del = require('del');
 var jshint = require('gulp-jshint');
 var connect = require('gulp-connect');
 var inject = require('gulp-inject');
-var angular = require('gulp-angular-filesort');
+var angularFilesort = require('gulp-angular-filesort');
 var bowerFiles = require('main-bower-files');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
+var less = require('gulp-less');
 
 gulp.task('lint', function () {
     return gulp.src('./src/*.js')
@@ -26,7 +28,8 @@ gulp.task('index', function () {
         .pipe(angularFilesort());
 
     return target.pipe(inject(sources))
-        .pipe(gulp.dest('./public'));
+        .pipe(gulp.dest('./public'))
+        .pipe(connect.reload());
 });
 
 gulp.task('connect', function () {
@@ -42,6 +45,14 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['connect', 'watch']);
+
+gulp.task('clean', function () {
+    del('./public/scripts', {
+        force: true
+    }, function (err, paths) {
+        console.log('Deleted files/folders:\n', paths.join('\n'));
+    });
+});
 
 //gulp.task('default', function () {
 //    return gulp.src('src/app.js')
