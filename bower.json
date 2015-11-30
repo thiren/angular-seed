@@ -1,25 +1,28 @@
 {
-  "name": "angular-seed",
-  "version": "1.0.0",
-  "homepage": "https://github.com/thiren/angular-seed",
-  "authors": [
-    "Thiren Bunsee <thirenbunsee@gmail.com>"
-  ],
-  "description": "Template for new Angular applications",
-  "main": "index.js",
-  "private": true,
-  "keywords": [
-    "angular"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "angular": "~1.4.7"
-  }
+    "name": "angular-seed",
+    "version": "1.0.0",
+    "homepage": "https://github.com/thiren/angular-seed",
+    "authors": [
+        "Thiren Bunsee <thirenbunsee@gmail.com>"
+    ],
+    "description": "Seed for new Angular applications",
+    "main": "index.js",
+    "private": true,
+    "keywords": [
+        "angular"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular": "~1.4.8"
+    },
+    "resolutions": {
+        "angular": "~1.4.8"
+    }
 }
