@@ -1,17 +1,16 @@
 module.exports = {
     appFiles: {
-        js: './app/**/*.js',
+        js: ['./app/**/*.js', './config/**/*.js'],
         css: './app/**/*.css',
         less: './style/main.less',
         html: ['./app/**/*.html'],
         index: './app/index.html',
         images: './images/**/*.*',
-        constants: './app/config/settings.module.json',
+        constants: './config/settings.module.json',
         bowerRoot: './bower_components'
     },
     vendorFiles: {
         js: [
-            "./bower_components/modernizr/modernizr.js"
         ],
         css: [
         ]
@@ -22,7 +21,7 @@ module.exports = {
         font: "./build/fonts/",
         images: './build/images/',
         root: "./build/",
-        constants: './app/config/',
+        constants: './config/',
         injectIgnoreString: '/build/'
     },
     names: {
@@ -37,9 +36,9 @@ module.exports = {
     },
     watch: {
         less: './style/**/*.less',
-        js: './app/**/*.js',
+        js: ['./app/**/*.js', './config/**/*.js'],
         images: './images/**/*.*',
         html: './app/**/*.html',
-        constants: './app/config/settings.module.json'
+        constants: './config/settings.module.json'
     }
 };

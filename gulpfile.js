@@ -22,6 +22,8 @@ var jsHint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
+var babel = require('gulp-babel');
+var minifyHTML = require('gulp-minify-html');
 var vendorJsfileName;
 var appJsFileName;
 var vendorCssFileName;
@@ -96,6 +98,7 @@ gulp.task("app-js", function () {
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
         .pipe(concat(appJsFileName))
+        .pipe(babel({presets: ['es2015']}))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulp.dest(config.outputPaths.js))
         .pipe(connect.reload());
@@ -105,7 +108,12 @@ gulp.task("app-js", function () {
     }
 
     function htmlJs() {
+        var opts = {
+            conditionals: true,
+            spare:true
+        };
         return gulp.src(config.appFiles.html)
+            .pipe(gulpIf(shouldMinify(), minifyHTML(opts)))
             .pipe(html2js({
                 moduleName: config.names.viewsModule
             }));
