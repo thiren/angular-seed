@@ -1,14 +1,14 @@
 {
-  "name": "angular-template",
+  "name": "angular-seed",
   "version": "1.0.0",
-  "description": "Template for new Angular applications",
-  "main": "index.js",
+  "description": "Seed project for new angular applications",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thiren/angular-template.git"
+    "url": "git+https://github.com/thiren/angular-seed.git"
   },
   "private": true,
   "keywords": [
@@ -17,10 +17,32 @@
   "author": "Thiren Bunsee <thirenbunsee@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thiren/angular-template/issues"
+    "url": "https://github.com/thiren/angular-seed/issues"
   },
-  "homepage": "https://github.com/thiren/angular-template#readme",
+  "homepage": "https://github.com/thiren/angular-seed#readme",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "babel-preset-es2015": "6.1.18",
+    "del": "2.1.0",
+    "event-stream": "3.3.2",
+    "gulp": "3.9.0",
+    "gulp-angular-filesort": "1.1.1",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-babel": "6.1.0",
+    "gulp-bower": "0.0.11",
+    "gulp-concat": "2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-if": "2.0.0",
+    "gulp-inject": "3.0.0",
+    "gulp-jshint": "1.12.0",
+    "gulp-less": "3.0.5",
+    "gulp-minify-css": "1.2.1",
+    "gulp-minify-html": "1.0.4",
+    "gulp-ng-annotate": "1.1.0",
+    "gulp-ng-constant": "1.1.0",
+    "gulp-ng-html2js": "0.2.0",
+    "gulp-sync": "0.1.4",
+    "gulp-uglify": "1.5.1",
+    "main-bower-files": "2.9.0",
+    "yargs": "3.30.0"
   }
 }

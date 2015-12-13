@@ -1,11 +1,11 @@
 {
-  "name": "angular-template",
+  "name": "angular-seed",
   "version": "1.0.0",
-  "homepage": "https://github.com/thiren/angular-template",
+  "homepage": "https://github.com/thiren/angular-seed",
   "authors": [
     "Thiren Bunsee <thirenbunsee@gmail.com>"
   ],
-  "description": "Template for new Angular applications",
+  "description": "Seed for new Angular applications",
   "main": "index.js",
   "private": true,
   "keywords": [
@@ -20,6 +20,11 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.1"
+    "angular": "1.5.0-rc.0",
+    "angular-material": "1.0.0-rc7",
+    "angular-ui-router": "ui-router#~0.2.15"
+  },
+  "resolutions": {
+    "angular": "1.5.0-rc.0"
   }
 }

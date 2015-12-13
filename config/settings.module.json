@@ -1,0 +1,22 @@
+{
+    "dev": {
+        "settings": {
+
+        }
+    },
+    "qa": {
+        "settings": {
+
+        }
+    },
+    "localqa": {
+        "settings": {
+
+        }
+    },
+    "production": {
+        "settings": {
+
+        }
+    }
+}
