@@ -13,7 +13,6 @@ var html2js = require("gulp-ng-html2js");
 var eventStream = require("event-stream");
 var argv = require('yargs').argv;
 var ngConstant = require('gulp-ng-constant');
-var config = require("./build.config.js");
 var less = require('gulp-less');
 var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
@@ -24,6 +23,7 @@ var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
 var babel = require('gulp-babel');
 var minifyHTML = require('gulp-minify-html');
+var config = require("./build.config.js");
 var vendorJsfileName;
 var appJsFileName;
 var vendorCssFileName;
@@ -47,9 +47,9 @@ gulp.task("constants", function () {
     var settings = require(config.appFiles.constants);
     var environmentSettings = settings[environment];
     return ngConstant({
-        name: config.names.mainModule,
+        name: 'settings',
         constants: environmentSettings,
-        deps: false,
+        deps: [],
         wrap: true,
         stream: true
     })
@@ -202,7 +202,7 @@ gulp.task("watch", ["build-index", 'connect'], function () {
 gulp.task('connect', function () {
     connect.server({
         root: config.outputPaths.root,
-        port: 6792,
+        port: 8080,
         livereload: true
     });
 });

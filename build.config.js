@@ -26,7 +26,7 @@ module.exports = {
     },
     names: {
         mainModule: 'angular-seed',
-        viewsModule: 'angular-seed.views',
+        viewsModule: 'angular-views',
         output: {
             appCss: "build",
             vendorCss: "vendor",
