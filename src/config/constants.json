@@ -1,21 +1,21 @@
 {
     "dev": {
-        "settings": {
-
-        }
-    },
-    "qa": {
-        "settings": {
+        "constants": {
 
         }
     },
     "localqa": {
-        "settings": {
+        "constants": {
+
+        }
+    },
+    "qa": {
+        "constants": {
 
         }
     },
     "production": {
-        "settings": {
+        "constants": {
 
         }
     }

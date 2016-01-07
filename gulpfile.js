@@ -47,7 +47,7 @@ gulp.task("constants", function () {
     var settings = require(config.appFiles.constants);
     var environmentSettings = settings[environment];
     return ngConstant({
-        name: 'constants',
+        name: config.names.constantsModule,
         constants: environmentSettings,
         deps: [],
         wrap: true,
