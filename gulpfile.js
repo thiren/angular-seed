@@ -6,7 +6,7 @@ var bower = require("gulp-bower");
 var concat = require("gulp-concat");
 var del = require('del');
 var inject = require("gulp-inject");
-var minifyCss = require("gulp-minify-css");
+var cssnano = require('gulp-cssnano');
 var uglify = require("gulp-uglify");
 var ngAnnotate = require("gulp-ng-annotate");
 var html2js = require("gulp-ng-html2js");
@@ -22,7 +22,7 @@ var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
 var babel = require('gulp-babel');
-var minifyHTML = require('gulp-minify-html');
+var htmlmin = require('gulp-htmlmin');
 var config = require("./build.config.js");
 var vendorJsfileName;
 var appJsFileName;
@@ -47,7 +47,7 @@ gulp.task("constants", function () {
     var settings = require(config.appFiles.constants);
     var environmentSettings = settings[environment];
     return ngConstant({
-        name: 'settings',
+        name: 'constants',
         constants: environmentSettings,
         deps: [],
         wrap: true,
@@ -66,7 +66,7 @@ gulp.task('less', function () {
             remove: false
         }))
         .pipe(concat(appCssFileName))
-        .pipe(gulpIf(shouldMinify(), minifyCss()))
+        .pipe(gulpIf(shouldMinify(), cssnano()))
         .pipe(gulp.dest(config.outputPaths.css))
         .pipe(connect.reload());
 });
@@ -81,7 +81,7 @@ gulp.task("vendor-css", function () {
         base: 'bower_components'
     })
         .pipe(concat(vendorCssFileName))
-        .pipe(gulpIf(shouldMinify(), minifyCss()))
+        .pipe(gulpIf(shouldMinify(), cssnano()))
         .pipe(gulp.dest(config.outputPaths.css));
 });
 
@@ -109,11 +109,10 @@ gulp.task("app-js", function () {
 
     function htmlJs() {
         var opts = {
-            conditionals: true,
-            spare:true
+            removeComments: true
         };
         return gulp.src(config.appFiles.html)
-            .pipe(gulpIf(shouldMinify(), minifyHTML(opts)))
+            .pipe(gulpIf(shouldMinify(), htmlmin(opts)))
             .pipe(html2js({
                 moduleName: config.names.viewsModule
             }));
@@ -145,17 +144,17 @@ gulp.task("font", function () {
 });
 
 gulp.task("static-font", function () {
-    return gulp.src('font/**/*.woff2')
+    return gulp.src(config.appFiles.font)
         .pipe(gulp.dest(config.outputPaths.font));
 });
 
 gulp.task('static-files', function () {
-    return gulp.src(['./web.config', './unsupportedBrowser.html'])
+    return gulp.src(config.appFiles.staticFiles)
         .pipe(gulp.dest(config.outputPaths.root));
 });
 
 gulp.task('favicon', function () {
-    return gulp.src('favicon.ico')
+    return gulp.src(config.appFiles.favicon)
         .pipe(gulp.dest(config.outputPaths.root));
 });
 
