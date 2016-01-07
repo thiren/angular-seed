@@ -6,7 +6,7 @@
     "Thiren Bunsee <thirenbunsee@gmail.com>"
   ],
   "description": "Seed for new Angular applications",
-  "main": "index.js",
+  "main": "index.html",
   "private": true,
   "keywords": [
     "angular"
@@ -21,8 +21,9 @@
   ],
   "dependencies": {
     "angular": "1.5.0-rc.0",
-    "angular-material": "1.0.0-rc7",
-    "angular-ui-router": "ui-router#~0.2.15"
+    "angular-ui-router": "ui-router#~0.2.15",
+    "angular-animate": "1.4.8",
+    "angular-messages": "1.4.8"
   },
   "resolutions": {
     "angular": "1.5.0-rc.0"
