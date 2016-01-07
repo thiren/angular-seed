@@ -86,7 +86,7 @@ gulp.task("vendor-css", function () {
 });
 
 gulp.task('lint', function () {
-    return gulp.src(config.taskFiles.jslint)
+    return gulp.src(config.taskFiles.jshint)
         .pipe(jsHint())
         .pipe(jsHint.reporter('default'));
 });
