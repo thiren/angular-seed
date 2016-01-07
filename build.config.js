@@ -1,12 +1,15 @@
 module.exports = {
     appFiles: {
-        js: ['./app/**/*.js', './config/**/*.js'],
-        css: './app/**/*.css',
-        less: './style/main.less',
-        html: ['./app/**/*.html'],
-        index: './app/index.html',
-        images: './images/**/*.*',
-        constants: './config/settings.module.json',
+        js: ['./src/app/**/*.js', './src/config/**/*.js'],
+        css: './src/app/**/*.css',
+        less: './src/styles/main.less',
+        html: ['./src/app/**/*.html'],
+        index: './src/index.html',
+        images: './src/images/**/*.*',
+        font: ['font/**/*.*'],
+        constants: './src/config/constants.json',
+        favicon: './src/favicon.ico',
+        staticFiles: ['./web.config', '.src/unsupported-browser.html'],
         bowerRoot: './bower_components'
     },
     vendorFiles: {
@@ -16,29 +19,29 @@ module.exports = {
         ]
     },
     outputPaths: {
-        js: "./build/scripts/",
-        css: "./build/css/",
-        font: "./build/fonts/",
+        js: './build/scripts/',
+        css: './build/css/',
+        font: './build/fonts/',
         images: './build/images/',
-        root: "./build/",
-        constants: './config/',
+        root: './build/',
+        constants: './src/config/',
         injectIgnoreString: '/build/'
     },
     names: {
         mainModule: 'angular-seed',
         viewsModule: 'angular-views',
         output: {
-            appCss: "build",
-            vendorCss: "vendor",
-            appJs: "build",
-            vendorJs: "vendor"
+            appCss: 'build',
+            vendorCss: 'vendor',
+            appJs: 'build',
+            vendorJs: 'vendor'
         }
     },
     watch: {
-        less: './style/**/*.less',
-        js: ['./app/**/*.js', './config/**/*.js'],
-        images: './images/**/*.*',
-        html: './app/**/*.html',
-        constants: './config/settings.module.json'
+        less: './src/styles/**/*.less',
+        js: ['./src/app/**/*.js', './src/config/**/*.js'],
+        images: './src/images/**/*.*',
+        html: './src/app/**/*.html',
+        constants: './src/config/constants.json'
     }
 };

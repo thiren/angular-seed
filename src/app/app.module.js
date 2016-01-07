@@ -2,10 +2,12 @@
     'use strict';
 
     angular.module('angular-seed', [
+        'ngAnimate',
         'ngMaterial',
-        'settings',
+        'ngMessages',
+        'constants',
         'ui.router',
-        'angular-views'
+        'angular-seed.views'
     ])
         .config(configure)
         .run(run);
