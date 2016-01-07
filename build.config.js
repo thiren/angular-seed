@@ -6,7 +6,7 @@ module.exports = {
         html: ['./src/app/**/*.html'],
         index: './src/index.html',
         images: './src/images/**/*.*',
-        font: ['font/**/*.*'],
+        font: ['./src/font/**/*.*'],
         constants: './src/config/constants.json',
         favicon: './src/favicon.ico',
         staticFiles: ['./web.config', '.src/unsupported-browser.html'],
@@ -24,7 +24,7 @@ module.exports = {
     outputPaths: {
         js: './build/scripts/',
         css: './build/css/',
-        font: './build/fonts/',
+        font: './build/font/',
         images: './build/images/',
         root: './build/',
         constants: './src/config/',
