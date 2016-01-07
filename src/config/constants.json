@@ -1,22 +1,18 @@
 {
-    "dev": {
-        "constants": {
-
-        }
-    },
-    "localqa": {
-        "constants": {
-
-        }
-    },
-    "qa": {
-        "constants": {
-
-        }
-    },
-    "production": {
-        "constants": {
-
-        }
+  "dev": {
+    "constants": {
     }
+  },
+  "localqa": {
+    "constants": {
+    }
+  },
+  "qa": {
+    "constants": {
+    }
+  },
+  "production": {
+    "constants": {
+    }
+  }
 }

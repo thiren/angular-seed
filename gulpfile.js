@@ -139,12 +139,12 @@ gulp.task("font", function () {
     return gulp.src(mainBowerFiles({
         filter: '**/*.{eot,svg,ttf,woff,woff2}'
     }))
-        .pipe(gulp.dest(config.outputPaths.font));
+        .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
 gulp.task("static-font", function () {
-    return gulp.src(config.appFiles.font)
-        .pipe(gulp.dest(config.outputPaths.font));
+    return gulp.src(config.appFiles.fonts)
+        .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
 gulp.task('static-files', function () {
