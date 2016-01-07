@@ -18,6 +18,9 @@ module.exports = {
         css: [
         ]
     },
+    taskFiles: {
+        jshint: ['./src/app/**/*.js']
+    },
     outputPaths: {
         js: './build/scripts/',
         css: './build/css/',
