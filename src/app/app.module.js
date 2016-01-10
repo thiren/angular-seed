@@ -4,6 +4,7 @@
     angular.module('angular-seed', [
         'ngAnimate',
         'ngMessages',
+        'ui.bootstrap',
         'ui.router',
         'angular-seed.constants',
         'angular-seed.views'
