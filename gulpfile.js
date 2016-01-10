@@ -23,6 +23,8 @@ var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
 var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 var config = require("./build.config.js");
 var vendorJsfileName;
 var appJsFileName;
@@ -158,7 +160,25 @@ gulp.task('favicon', function () {
 });
 
 gulp.task('images', function () {
+    var options = {
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngquant()]
+    };
     return gulp.src(config.appFiles.images)
+        .pipe(gulpIf(shouldMinify(), imagemin(options)))
+        .pipe(gulp.dest(config.outputPaths.images))
+        .pipe(connect.reload());
+});
+
+gulp.task('imagemin', function () {
+    var options = {
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngquant()]
+    };
+    return gulp.src(config.appFiles.images)
+        .pipe(imagemin(options))
         .pipe(gulp.dest(config.outputPaths.images))
         .pipe(connect.reload());
 });
