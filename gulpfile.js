@@ -220,7 +220,7 @@ gulp.task("watch", ["build-index", 'connect'], function () {
 gulp.task('connect', function () {
     connect.server({
         root: config.outputPaths.root,
-        port: 8080,
+        port: 9000,
         livereload: true
     });
 });
