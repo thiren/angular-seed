@@ -3,7 +3,9 @@
 
     angular.module('angular-seed', [
         'ngAnimate',
+        'ngAria',
         'ngMessages',
+        'ngResource',
         'ui.bootstrap',
         'ui.router',
         'angular-seed.constants',
