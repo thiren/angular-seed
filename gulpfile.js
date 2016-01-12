@@ -26,7 +26,7 @@ var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var config = require("./build.config.js");
-var vendorJsfileName;
+var vendorJsFileName;
 var appJsFileName;
 var vendorCssFileName;
 var appCssFileName;
@@ -121,7 +121,7 @@ gulp.task("app-js", function () {
 });
 
 gulp.task("vendor-js", function () {
-    vendorJsfileName = buildName(config.names.output.vendorJs, "js");
+    vendorJsFileName = buildName(config.names.output.vendorJs, "js");
     var options = {
         filter: '**/*.js',
         debugging: false
@@ -132,19 +132,16 @@ gulp.task("vendor-js", function () {
     var vendorJsSourceFiles = gulp.src(config.vendorFiles.js);
     return eventStream.merge(mainBowerSourceFiles, vendorJsSourceFiles)
         .pipe(ngAnnotate())
-        .pipe(concat(vendorJsfileName))
+        .pipe(concat(vendorJsFileName))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulp.dest(config.outputPaths.js));
 });
 
 gulp.task("font", function () {
     var options = {
-        filter: '**/*.{eot,svg,ttf,woff,woff2}',
-        debugging: false
+        filter: '**/*.{eot,svg,ttf,woff,woff2}'
     };
-    return gulp.src(mainBowerFiles(options), {
-            base: 'bower_components'
-        })
+    return gulp.src(mainBowerFiles(options))
         .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
@@ -192,7 +189,7 @@ gulp.task("default", ['build-index']);
 gulp.task("build-index", gulpSync.sync(['prep', 'work']), function () {
     var target = gulp.src(config.appFiles.index);
     var sources = gulp.src([
-        config.outputPaths.js + "/" + vendorJsfileName,
+        config.outputPaths.js + "/" + vendorJsFileName,
         config.outputPaths.js + "/" + appJsFileName,
         config.outputPaths.css + vendorCssFileName,
         config.outputPaths.css + appCssFileName
