@@ -138,9 +138,13 @@ gulp.task("vendor-js", function () {
 });
 
 gulp.task("font", function () {
-    return gulp.src(mainBowerFiles({
-        filter: '**/*.{eot,svg,ttf,woff,woff2}'
-    }))
+    var options = {
+        filter: '**/*.{eot,svg,ttf,woff,woff2}',
+        debugging: false
+    };
+    return gulp.src(mainBowerFiles(options), {
+            base: 'bower_components'
+        })
         .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
