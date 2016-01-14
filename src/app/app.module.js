@@ -4,6 +4,7 @@
     angular.module('angular-seed', [
         'ngAnimate',
         'ngAria',
+        'ngMaterial',
         'ngMessages',
         'ngResource',
         'ui.router',
