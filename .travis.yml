@@ -1,0 +1,31 @@
+language: node_js
+sudo: false
+node_js:
+  - '5.4'
+
+# whitelist
+branches:
+  only:
+    - master
+    - /^core\/.+$/
+
+cache:
+  directories:
+    - node_modules
+    - bower_components
+
+install:
+  # Check the size of caches
+  - du -sh ./node_modules ./bower_components/ || true
+  # Disable the spinner, it looks bad on Travis
+  - npm config set spin false
+  # Log HTTP requests
+  - npm config set loglevel http
+  # Install npm dependencies and ensure that npm cache is not stale
+  - npm install
+
+before_script:
+  - npm install -g gulp
+
+script:
+  - gulp --env=production
