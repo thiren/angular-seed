@@ -2,6 +2,7 @@
     "preset": "google",
     "disallowSpacesInAnonymousFunctionExpression": null,
     "excludeFiles": [
+        "build/**",
         "bower_components/**",
         "node_modules/**",
         "test/**"
