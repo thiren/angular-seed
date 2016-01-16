@@ -2,21 +2,22 @@
     'use strict';
 
     angular.module('angular-seed', [
-        'ngAnimate',
-        'ngAria',
-        'ngMaterial',
-        'ngMessages',
-        'ngResource',
-        'ui.router',
-        'angular-seed.constants',
-        'angular-seed.views'
-    ])
+            'ngAnimate',
+            'ngAria',
+            'ngMaterial',
+            'ngMessages',
+            'ngResource',
+            'ui.router',
+            'angular-seed.constants',
+            'angular-seed.views'
+        ])
         .config(configure)
         .run(run);
 
-    configure.$inject = ['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider'];
+    configure.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider'];
 
-    function configure($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+    function configure($stateProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+        $locationProvider.html5Mode(true);
         $urlMatcherFactoryProvider.strictMode(false);
         $urlRouterProvider.otherwise("/home");
         $stateProvider
@@ -42,9 +43,19 @@
             });
     }
 
-    run.$inject = [];
+    run.$inject = ['$rootScope'];
 
-    function run () {
-
+    function run($rootScope) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            //event.preventDefault();
+            // transitionTo() promise will be rejected with
+            // a 'transition prevented' error
+        });
+        //$state.go("lazy.state", {a:1, b:2}, {inherit:false});
+        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+            //console.log(unfoundState.to); // "lazy.state"
+            //console.log(unfoundState.toParams); // {a:1, b:2}
+            //console.log(unfoundState.options); // {inherit:false} + default options
+        });
     }
 })();
