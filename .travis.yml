@@ -29,4 +29,3 @@ before_script:
 
 script:
   - gulp --env=production
-  - gulp test
