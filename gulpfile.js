@@ -25,11 +25,8 @@ var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
+var rev = require('gulp-rev');
 var config = require("./build.config.js");
-var vendorJsfileName;
-var appJsFileName;
-var vendorCssFileName;
-var appCssFileName;
 
 gulp.task("clean", function () {
     del(config.outputPaths.root, {
@@ -59,7 +56,6 @@ gulp.task("constants", function () {
 });
 
 gulp.task('less', function () {
-    appCssFileName = buildName(config.names.output.appCss, "css");
     return gulp.src(config.appFiles.less)
         .pipe(less())
         .pipe(autoprefixer({
@@ -67,23 +63,22 @@ gulp.task('less', function () {
             cascade: false,
             remove: false
         }))
-        .pipe(concat(appCssFileName))
+        .pipe(concat(config.names.output.appCss))
         .pipe(gulpIf(shouldMinify(), cssnano()))
+        .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.css))
         .pipe(connect.reload());
 });
 
 gulp.task("vendor-css", function () {
-    vendorCssFileName = buildName(config.names.output.vendorCss, "css");
     var options = {
         filter: '**/*.css',
         debugging: false
     };
-    return gulp.src(mainBowerFiles(options), {
-        base: 'bower_components'
-    })
-        .pipe(concat(vendorCssFileName))
+    return gulp.src(mainBowerFiles(options), {base: 'bower_components'})
+        .pipe(concat(config.names.output.vendorCss))
         .pipe(gulpIf(shouldMinify(), cssnano()))
+        .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.css));
 });
 
@@ -94,13 +89,13 @@ gulp.task('lint', function () {
 });
 
 gulp.task("app-js", function () {
-    appJsFileName = buildName(config.names.output.appJs, "js");
     return eventStream.merge(htmlJs(), appJs())
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
-        .pipe(concat(appJsFileName))
+        .pipe(concat(config.names.output.appJs))
         .pipe(babel({presets: ['es2015']}))
         .pipe(gulpIf(shouldMinify(), uglify()))
+        .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js))
         .pipe(connect.reload());
 
@@ -121,7 +116,6 @@ gulp.task("app-js", function () {
 });
 
 gulp.task("vendor-js", function () {
-    vendorJsfileName = buildName(config.names.output.vendorJs, "js");
     var options = {
         filter: '**/*.js',
         debugging: false
@@ -132,15 +126,16 @@ gulp.task("vendor-js", function () {
     var vendorJsSourceFiles = gulp.src(config.vendorFiles.js);
     return eventStream.merge(mainBowerSourceFiles, vendorJsSourceFiles)
         .pipe(ngAnnotate())
-        .pipe(concat(vendorJsfileName))
+        .pipe(concat(config.names.output.vendorJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
+        .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js));
 });
 
 gulp.task("font", function () {
     return gulp.src(mainBowerFiles({
-        filter: '**/*.{eot,svg,ttf,woff,woff2}'
-    }))
+            filter: '**/*.{eot,svg,ttf,woff,woff2}'
+        }))
         .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
@@ -186,20 +181,27 @@ gulp.task('imagemin', function () {
 gulp.task("default", ['build-index']);
 
 gulp.task("build-index", gulpSync.sync(['prep', 'work']), function () {
-    var target = gulp.src(config.appFiles.index);
-    var sources = gulp.src([
-        config.outputPaths.js + "/" + vendorJsfileName,
-        config.outputPaths.js + "/" + appJsFileName,
-        config.outputPaths.css + vendorCssFileName,
-        config.outputPaths.css + appCssFileName
+    var jsSources = gulp.src([
+        config.outputPaths.js + "/**/*.js"
+    ], {
+        read: true
+    }).pipe(angularFilesort());
+
+    var cssSources = gulp.src([
+        config.outputPaths.css + "/**/*.css"
     ], {
         read: false
     });
 
-    return target.pipe(inject(sources, {
-        ignorePath: config.outputPaths.injectIgnoreString,
-        addRootSlash: true
-    }))
+    return gulp.src(config.appFiles.index)
+        .pipe(inject(jsSources, {
+            ignorePath: config.outputPaths.injectIgnoreString,
+            addRootSlash: true
+        }))
+        .pipe(inject(cssSources, {
+            ignorePath: config.outputPaths.injectIgnoreString,
+            addRootSlash: true
+        }))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
@@ -225,13 +227,12 @@ gulp.task('connect', function () {
     });
 });
 
-function buildName(name, extension) {
+function shouldRevision() {
     var environment = argv.env || "dev";
     if (environment === 'dev' || environment === 'localqa') {
-        return name + '.' + extension;
+        return false;
     }
-    var ticks = new Date().getTime();
-    return util.format("%s-%s.%s", name, ticks, extension);
+    return true;
 }
 
 function shouldMinify() {
