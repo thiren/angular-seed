@@ -17,6 +17,7 @@
 
     function configure($stateProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
         $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
         $urlMatcherFactoryProvider.strictMode(false);
         $urlRouterProvider.otherwise("/home");
         $stateProvider
