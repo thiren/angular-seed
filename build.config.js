@@ -22,30 +22,30 @@ module.exports = {
         jshint: ['./src/app/**/*.js']
     },
     outputPaths: {
-        js: './build/scripts/',
-        css: './build/css/',
-        fonts: './build/fonts/',
-        images: './build/images/',
-        root: './build/',
-        constants: './src/config/',
-        injectIgnoreString: '/build/'
+        js: './build/scripts',
+        css: './build/css',
+        fonts: './build/fonts',
+        images: './build/images',
+        root: './build',
+        constants: './src/config',
+        injectIgnoreString: '/build'
     },
     names: {
         mainModule: 'angular-seed',
         viewsModule: 'angular-seed.views',
         constantsModule: 'angular-seed.constants',
         output: {
-            appCss: 'build',
-            vendorCss: 'vendor',
-            appJs: 'build',
-            vendorJs: 'vendor'
+            appCss: 'build.css',
+            vendorCss: 'vendor.css',
+            appJs: 'build.js',
+            vendorJs: 'vendor.js'
         }
     },
     watch: {
         less: './src/styles/**/*.less',
         js: ['./src/app/**/*.js', './src/config/**/*.js'],
         images: './src/images/**/*.*',
-        html: './src/app/**/*.html',
+        html: './src/**/*.html',
         constants: './src/config/constants.json'
     }
 };
