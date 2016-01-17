@@ -49,6 +49,6 @@
     "jshint": "2.9.1",
     "karma": "0.13.19",
     "main-bower-files": "2.11.1",
-    "yargs": "3.31.0"
+    "yargs": "3.32.0"
   }
 }
