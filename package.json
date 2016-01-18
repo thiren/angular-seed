@@ -4,6 +4,12 @@
   "description": "Seed project for new angular applications",
   "main": "index.html",
   "scripts": {
+    "postinstall": "bower install",
+
+    "prestart": "npm install",
+    "start": "gulp watch --env=dev",
+
+    "pretest": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
