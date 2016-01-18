@@ -206,24 +206,26 @@ gulp.task("build-index", gulpSync.sync(['prep', 'work']), function () {
         .pipe(connect.reload());
 });
 
-gulp.task('prep', gulpSync.async(['bower', 'clean', 'constants']));
+gulp.task('prep', ['bower', 'clean', 'constants']);
 
 //gulp.task('work', gulpSync.async(['vendor-js', 'app-js', 'font', 'less', 'favicon', 'images']));
 
-gulp.task('work', gulpSync.async(['vendor-css', 'vendor-js', 'app-js', 'static-font', 'font', 'less', 'favicon', 'images']));
+gulp.task('work', ['vendor-css', 'vendor-js', 'app-js', 'static-font', 'font', 'less', 'favicon', 'images']);
 
-gulp.task("watch", ["build-index", 'connect'], function () {
+gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ["less"]);
     gulp.watch([config.watch.js, config.watch.html], ["app-js"]);
     gulp.watch(config.watch.images, ['images']);
     gulp.watch(config.watch.constants, ["constants"]);
 });
 
-gulp.task('connect', function () {
+gulp.task('connect', ['build-index'], function () {
     connect.server({
         root: config.outputPaths.root,
         port: 9000,
-        livereload: true
+        https: false,
+        livereload: true,
+        fallback: config.outputPaths.root + '/index.html'
     });
 });
 
