@@ -223,7 +223,6 @@ gulp.task('connect', ['build-index'], function () {
     connect.server({
         root: config.outputPaths.root,
         port: 9000,
-        https: false,
         livereload: true,
         fallback: config.outputPaths.root + '/index.html'
     });
