@@ -34,7 +34,8 @@
                 url: "/home",
                 views: {
                     "header@app": {
-                        templateUrl: "header/header.tpl.html"
+                        templateUrl: "header/header.tpl.html",
+                        controller: 'headerController'
                     },
                     "content@app": {
                         templateUrl: "home/home.tpl.html"
