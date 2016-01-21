@@ -3,6 +3,8 @@
 describe('angular-seed module', function() {
 
     beforeEach(module('angular-seed'));
+    beforeEach(module('angular-seed.constants'));
+    beforeEach(module('angular-seed.views'));
 
     describe('header controller', function(){
 
