@@ -1,4 +1,3 @@
-/*globals require, console, __dirname*/
 'use strict';
 var util = require('util');
 var gulp = require('gulp');
