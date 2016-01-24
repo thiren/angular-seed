@@ -32,6 +32,12 @@ if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLower
     environment = argv.env.toLowerCase();
 }
 
+gulp.task('lint', function () {
+    return gulp.src(config.taskFiles.jshint)
+        .pipe(jsHint())
+        .pipe(jsHint.reporter('default'));
+});
+
 gulp.task('clean', function () {
     var options = {
         force: true
@@ -83,12 +89,6 @@ gulp.task('vendor-css', function () {
         .pipe(gulp.dest(config.outputPaths.css));
 });
 
-gulp.task('lint', function () {
-    return gulp.src(config.taskFiles.jshint)
-        .pipe(jsHint())
-        .pipe(jsHint.reporter('default'));
-});
-
 gulp.task('app-js', ['constants'], function () {
     return eventStream.merge(htmlJs(), appJs())
         .pipe(ngAnnotate())
@@ -101,6 +101,7 @@ gulp.task('app-js', ['constants'], function () {
         .pipe(connect.reload());
 
     function appJs() {
+        console.log(config.appFiles.js);
         return gulp.src(config.appFiles.js);
     }
 
@@ -170,8 +171,6 @@ gulp.task('images', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('default', ['build-index']);
-
 gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
     var jsSources = gulp.src([
         config.outputPaths.js + '/**/*.js'
@@ -198,9 +197,9 @@ gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
         .pipe(connect.reload());
 });
 
-gulp.task('prep', ['bower', 'clean']);
+gulp.task('default', ['build-index']);
 
-//gulp.task('work', gulpSync.async(['vendor-js', 'app-js', 'font', 'less', 'favicon', 'images']));
+gulp.task('prep', ['bower', 'clean']);
 
 gulp.task('work', ['vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
