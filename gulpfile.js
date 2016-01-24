@@ -101,7 +101,6 @@ gulp.task('app-js', ['constants'], function () {
         .pipe(connect.reload());
 
     function appJs() {
-        console.log(config.appFiles.js);
         return gulp.src(config.appFiles.js);
     }
 
