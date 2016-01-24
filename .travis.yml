@@ -27,7 +27,6 @@ install:
 
 before_script:
   - npm install -g gulp
-  - npm install -g karma
 
 script:
   - gulp --env=production
