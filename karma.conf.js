@@ -1,40 +1,38 @@
 module.exports = function(config){
     config.set({
-
-        frameworks: ['jasmine'],
-
-        // frameworks to use
-        //frameworks: ['mocha', 'sinon-chai'],
+        frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
 
         basePath : './',
 
         files : [
             'bower_components/angular/angular.js',
-            'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-aria/angular-aria.js',
-            'bower_components/angular-messages/angular-messages.js',
-            'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
+            'bower_components/angular-mocks/angular-mocks.js',
+            'src/configs/**/*.js',
             'src/app/**/*.js',
-            'test/**/*.js'
+            'src/app/**/*.spec.js',
+            'test/unit/**/*.spec.js'
         ],
 
-        // list of files to exclude
-        exclude: [],
+        exclude: [
+            'src/app/app.module.js'
+        ],
 
-        // preprocess matching files before serving them to the browser
+        //logLevel: config.LOG_DEBUG,
+
         preprocessors: {
-            'src/*.js': ['coverage']
+            'src/app/**/*.js': ['coverage']
         },
+
+        reporters: ['mocha', 'coverage'],
 
         coverageReporter: {
-            type: 'text-summary',
-            dir: 'coverage/'
+            dir: 'coverage/',
+            reporters: [
+                { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+            ]
         },
-
-        // test results reporter to use
-        reporters: ['progress', 'coverage'],
 
         // web server port
         port: 9876,
@@ -43,25 +41,24 @@ module.exports = function(config){
         colors: true,
 
         // enable / disable watching file and executing tests on file changes
-        autoWatch : true,
+        autoWatch : false,
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
-        browsers : ['Chrome'],
+        browsers : ['PhantomJS2'],
+
+        concurrency: 1,
 
         plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-        ],
-
-        junitReporter : {
-            outputFile: 'test_out/unit.xml',
-            suite: 'unit'
-        }
-
+            'karma-phantomjs2-launcher',
+            'karma-mocha',
+            'karma-mocha-reporter',
+            'karma-chai',
+            'karma-sinon',
+            'karma-sinon-chai',
+            'karma-coverage'
+        ]
     });
 };
