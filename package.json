@@ -9,7 +9,7 @@
     "prestart": "npm install",
     "start": "gulp watch --env=dev",
 
-    "pretest": "npm install | gulp constants",
+    "pretest": "npm install | gulp constants --env=production",
     "test": "karma start karma.conf.js"
   },
   "repository": {
