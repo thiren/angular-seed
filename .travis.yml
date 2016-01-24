@@ -35,4 +35,4 @@ before_script:
 
 script:
   - gulp --env=production
-  - npm test
+  - npm run-script test-travis

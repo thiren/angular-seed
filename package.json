@@ -10,7 +10,9 @@
     "start": "gulp watch --env=dev",
 
     "pretest": "npm install | gulp constants --env=production",
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+
+    "test-travis": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
