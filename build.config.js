@@ -1,13 +1,14 @@
 module.exports = {
+    environments: ['dev', 'localqa', 'qa', 'production'],
     appFiles: {
-        js: ['./src/app/**/*.js', './src/config/**/*.js'],
+        js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
         less: './src/styles/main.less',
         html: ['./src/app/**/*.html'],
         index: './src/index.html',
         images: './src/images/**/*.*',
         fonts: ['./src/fonts/**/*.*'],
-        constants: './src/config/constants.json',
+        constants: './src/configs/constants.json',
         favicon: './src/favicon.ico',
         staticFiles: ['./web.config', '.src/unsupported-browser.html'],
         bowerRoot: './bower_components'
@@ -21,13 +22,14 @@ module.exports = {
     taskFiles: {
         jshint: ['./src/app/**/*.js']
     },
+    buildFiles: ['./build/**/*.*', './build/*'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',
         fonts: './build/fonts',
         images: './build/images',
         root: './build',
-        constants: './src/config',
+        constants: './src/configs',
         injectIgnoreString: '/build'
     },
     names: {
@@ -43,9 +45,9 @@ module.exports = {
     },
     watch: {
         less: './src/styles/**/*.less',
-        js: ['./src/app/**/*.js', './src/config/**/*.js'],
-        images: './src/images/**/*.*',
+        js: ['./src/app/**/*.js', '!./src/app/**/*.spec.js'],
+        images: './src/images/**/*.{svg,png,jpg,jpeg,webp,gif}',
         html: './src/**/*.html',
-        constants: './src/config/constants.json'
+        constants: './src/configs/constants.json'
     }
 };
