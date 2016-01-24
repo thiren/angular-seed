@@ -8,7 +8,8 @@
             'ngResource',
             'ui.router',
             'angular-seed.constants',
-            'angular-seed.views'
+            'angular-seed.views',
+            'angular-seed.header'
         ])
         .config(configure)
         .run(run);
@@ -37,7 +38,7 @@
                 views: {
                     "header@app": {
                         templateUrl: "header/header.tpl.html",
-                        controller: 'headerController'
+                        controller: 'HeaderController'
                     },
                     "content@app": {
                         templateUrl: "home/home.tpl.html"

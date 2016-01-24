@@ -1,24 +1,19 @@
 'use strict';
 
-describe('angular-seed module', function() {
+describe('angular-seed.header module', function() {
 
     beforeEach(module('angular-seed.header'));
-    //beforeEach(module('angular-seed.constants'));
-    //beforeEach(module('angular-seed.views'));
-    //beforeEach(module('angular-seed.header'));
 
     describe('HeaderController', function(){
         var scope, ctrl;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+        beforeEach(inject(function($rootScope, $controller) {
             scope = $rootScope.$new();
             ctrl = $controller('HeaderController', {$scope: scope});
         }));
 
-        it('should exist', inject(function($controller) {
-            //spec body
-            var ctrl = $controller('HeaderController', {$scope: scope});
-            expect(ctrl).to.exist;
+        it('should be defined', inject(function() {
+            assert.isDefined(ctrl, 'is defined')
         }));
     });
 });
