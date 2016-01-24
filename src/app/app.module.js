@@ -13,13 +13,15 @@
         .config(configure)
         .run(run);
 
-    configure.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider'];
+    configure.$inject = ['$stateProvider', '$compileProvider', '$locationProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', 'configs'];
 
-    function configure($stateProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+    function configure($stateProvider, $compileProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider, configs) {
+        $compileProvider.debugInfoEnabled(configs.debugInfoEnabled);
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
         $urlMatcherFactoryProvider.strictMode(false);
         $urlRouterProvider.otherwise("/home");
+
         $stateProvider
             .state('app', {
                 url: "",
