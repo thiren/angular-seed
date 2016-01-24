@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "configs": {
+      "debugInfoEnabled": true
+    }
+  },
+  "localqa": {
+    "configs": {
+      "debugInfoEnabled": true
+    }
+  },
+  "qa": {
+    "configs": {
+      "debugInfoEnabled": false
+    }
+  },
+  "production": {
+    "configs": {
+      "debugInfoEnabled": false
+    }
+  }
+}
