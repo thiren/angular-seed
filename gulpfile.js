@@ -1,18 +1,18 @@
 /*globals require, console, __dirname*/
 'use strict';
-var util = require("util");
-var gulp = require("gulp");
-var bower = require("gulp-bower");
-var concat = require("gulp-concat");
+var util = require('util');
+var gulp = require('gulp');
+var bower = require('gulp-bower');
+var concat = require('gulp-concat');
 var del = require('del');
-var inject = require("gulp-inject");
+var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
-var uglify = require("gulp-uglify");
-var ngAnnotate = require("gulp-ng-annotate");
-var html2js = require("gulp-ng-html2js");
-var eventStream = require("event-stream");
+var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
+var html2js = require('gulp-ng-html2js');
+var eventStream = require('event-stream');
 var argv = require('yargs').argv;
-var ngConstant = require('gulp-ng-constant');
+var gulpNgConfig = require('gulp-ng-config');
 var less = require('gulp-less');
 var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
@@ -26,32 +26,34 @@ var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var rev = require('gulp-rev');
-var config = require("./build.config.js");
+var config = require('./build.config.js');
 
-gulp.task("clean", function () {
-    del(config.outputPaths.root, {
+var environment = 'dev';
+if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLowerCase()) > -1) {
+    environment = argv.env.toLowerCase();
+}
+
+gulp.task('clean', function () {
+    var options = {
         force: true
-    }, function (err, paths) {
+    };
+    del(config.buildFiles, options).then(function (paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
     });
 });
 
-gulp.task("bower", function () {
+gulp.task('bower', function () {
     return bower(config.appFiles.bowerRoot);
 });
 
-gulp.task("constants", function () {
-    var environment = argv.env || "dev";
-    console.log("writing config for %s", environment);
-    var settings = require(config.appFiles.constants);
-    var environmentSettings = settings[environment];
-    return ngConstant({
-        name: config.names.constantsModule,
-        constants: environmentSettings,
-        deps: [],
-        wrap: true,
-        stream: true
-    })
+gulp.task('constants', function () {
+    var options = {
+        environment: environment,
+        createModule: true,
+        wrap: '(function () {\n <%= module %> \n})();'
+    };
+    return gulp.src(config.appFiles.constants)
+        .pipe(gulpNgConfig(config.names.constantsModule, options))
         .pipe(gulp.dest(config.outputPaths.constants));
 });
 
@@ -70,7 +72,7 @@ gulp.task('less', function () {
         .pipe(connect.reload());
 });
 
-gulp.task("vendor-css", function () {
+gulp.task('vendor-css', function () {
     var options = {
         filter: '**/*.css',
         debugging: false
@@ -88,7 +90,7 @@ gulp.task('lint', function () {
         .pipe(jsHint.reporter('default'));
 });
 
-gulp.task("app-js", function () {
+gulp.task('app-js', ['constants'], function () {
     return eventStream.merge(htmlJs(), appJs())
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
@@ -115,7 +117,7 @@ gulp.task("app-js", function () {
     }
 });
 
-gulp.task("vendor-js", function () {
+gulp.task('vendor-js', function () {
     var options = {
         filter: '**/*.js',
         debugging: false
@@ -132,14 +134,14 @@ gulp.task("vendor-js", function () {
         .pipe(gulp.dest(config.outputPaths.js));
 });
 
-gulp.task("font", function () {
+gulp.task('font', function () {
     return gulp.src(mainBowerFiles({
             filter: '**/*.{eot,svg,ttf,woff,woff2}'
         }))
         .pipe(gulp.dest(config.outputPaths.fonts));
 });
 
-gulp.task("static-font", function () {
+gulp.task('static-font', function () {
     return gulp.src(config.appFiles.fonts)
         .pipe(gulp.dest(config.outputPaths.fonts));
 });
@@ -156,7 +158,10 @@ gulp.task('favicon', function () {
 
 gulp.task('images', function () {
     var options = {
+        optimizationLevel: 3,
         progressive: true,
+        interlaced: true,
+        multipass: true,
         svgoPlugins: [{removeViewBox: false}],
         use: [pngquant()]
     };
@@ -166,33 +171,21 @@ gulp.task('images', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('imagemin', function () {
-    var options = {
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [pngquant()]
-    };
-    return gulp.src(config.appFiles.images)
-        .pipe(imagemin(options))
-        .pipe(gulp.dest(config.outputPaths.images))
-        .pipe(connect.reload());
-});
+gulp.task('default', ['build-index']);
 
-gulp.task("default", ['build-index']);
-
-gulp.task("build-index", gulpSync.sync(['prep', 'work']), function () {
+gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
     var jsSources = gulp.src([
-        config.outputPaths.js + "/**/*.js"
+        config.outputPaths.js + '/**/*.js'
     ], {
         read: true
     }).pipe(angularFilesort());
 
     var cssSources = gulp.src([
-        config.outputPaths.css + "/**/*.css"
+        config.outputPaths.css + '/**/*.css'
     ], {
         read: false
     });
-
+    console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
         .pipe(inject(jsSources, {
             ignorePath: config.outputPaths.injectIgnoreString,
@@ -206,17 +199,17 @@ gulp.task("build-index", gulpSync.sync(['prep', 'work']), function () {
         .pipe(connect.reload());
 });
 
-gulp.task('prep', ['bower', 'clean', 'constants']);
+gulp.task('prep', ['bower', 'clean']);
 
 //gulp.task('work', gulpSync.async(['vendor-js', 'app-js', 'font', 'less', 'favicon', 'images']));
 
-gulp.task('work', ['vendor-css', 'vendor-js', 'app-js', 'static-font', 'font', 'less', 'favicon', 'images']);
+gulp.task('work', ['vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
-    gulp.watch(config.watch.less, ["less"]);
-    gulp.watch([config.watch.js, config.watch.html], ["app-js"]);
+    gulp.watch(config.watch.less, ['less']);
+    gulp.watch([config.watch.js, config.watch.html], ['app-js']);
     gulp.watch(config.watch.images, ['images']);
-    gulp.watch(config.watch.constants, ["constants"]);
+    gulp.watch(config.watch.constants, ['app-js']);
 });
 
 gulp.task('connect', ['build-index'], function () {
@@ -229,7 +222,6 @@ gulp.task('connect', ['build-index'], function () {
 });
 
 function shouldRevision() {
-    var environment = argv.env || "dev";
     if (environment === 'dev' || environment === 'localqa') {
         return false;
     }
@@ -237,7 +229,6 @@ function shouldRevision() {
 }
 
 function shouldMinify() {
-    var environment = argv.env || "dev";
     if (environment === 'dev' || environment === 'localqa') {
         return false;
     }
