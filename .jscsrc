@@ -5,6 +5,7 @@
         "build/**",
         "bower_components/**",
         "node_modules/**",
-        "test/**"
+        "test/**",
+        "tests/**"
     ]
 }

@@ -12,7 +12,7 @@ module.exports = function(config){
             'src/configs/**/*.js',
             'src/app/**/*.js',
             'src/app/**/*.spec.js',
-            'test/unit/**/*.spec.js'
+            'tests/unit/**/*.spec.js'
         ],
 
         exclude: [

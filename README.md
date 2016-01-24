@@ -67,15 +67,23 @@ You should find that you have one new folder in your project.
 ```
 src/
   app/
+    header/
+      header.controller.js
+      header.tpl.html
     app.module.js
     main.tpl.html
-  config/
+  configs/
     constants.json
   fonts/
   images/
   styles/
+    main.less
   favicon.ico
   index.html
+tests/
+  unit/
+    header/
+      header.controller.spec.js
 karma.config.js
 build.config.js
 gulpfile.js

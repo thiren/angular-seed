@@ -1,7 +1,7 @@
 module.exports = {
     environments: ['dev', 'localqa', 'qa', 'production'],
     appFiles: {
-        js: ['./src/app/**/*.js', './src/configs/**/*.js'],
+        js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
         less: './src/styles/main.less',
         html: ['./src/app/**/*.html'],
@@ -45,7 +45,7 @@ module.exports = {
     },
     watch: {
         less: './src/styles/**/*.less',
-        js: './src/app/**/*.js',
+        js: ['./src/app/**/*.js', '!./src/app/**/*.spec.js'],
         images: './src/images/**/*.{svg,png,jpg,jpeg,webp,gif}',
         html: './src/**/*.html',
         constants: './src/configs/constants.json'
