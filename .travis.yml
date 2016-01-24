@@ -15,11 +15,6 @@ cache:
     - bower_components
 
 install:
-  # Enable PhantomJS2 support on Travis docker container
-  - mkdir travis-phantomjs
-  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
-  - export PATH=$PWD/travis-phantomjs:$PATH
   # Check the size of caches
   - du -sh ./node_modules ./bower_components/ || true
   # Disable the spinner, it looks bad on Travis
@@ -32,6 +27,11 @@ install:
 before_script:
   - npm install -g gulp
   - npm install -g karma
+  # Enable PhantomJS2 support on Travis docker container
+  - mkdir travis-phantomjs
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs:$PATH
 
 script:
   - gulp --env=production
