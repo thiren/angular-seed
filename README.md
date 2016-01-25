@@ -90,9 +90,9 @@ tests/
   unit/
     header/
       header.controller.spec.js
-karma.config.js
 build.config.js
 gulpfile.js
+karma.config.js
 ```
 
 ## Testing
