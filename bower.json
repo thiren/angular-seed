@@ -5,7 +5,7 @@
   "authors": [
     "Thiren Bunsee <thirenbunsee@gmail.com>"
   ],
-  "description": "Seed for new Angular applications",
+  "description": "A project seed for new angular 1.x applications",
   "main": "index.html",
   "private": true,
   "keywords": [
@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "angular": "1.5.0-rc.1",
-    "angular-ui-router": "ui-router#~0.2.15",
+    "angular-ui-router": "ui-router#~0.2.17",
     "angular-material": "1.0.3",
     "angular-animate": "1.5.0-rc.1",
     "angular-aria": "1.5.0-rc.1",
