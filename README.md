@@ -109,7 +109,7 @@ The easiest way to run the unit tests is to use the supplied npm script:
 npm test
 ```
 
-This script will start the Karma test runner to execute the unit tests.
+This script will start the Karma test runner which will execute the unit tests.
 
 ## Continuous Integration
 
