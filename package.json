@@ -1,7 +1,7 @@
 {
   "name": "angular-seed",
   "version": "1.0.0",
-  "description": "Seed project for new angular applications",
+  "description": "A project seed for new angular 1.x applications",
   "main": "index.html",
   "scripts": {
     "postinstall": "bower install",

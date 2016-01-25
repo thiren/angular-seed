@@ -5,7 +5,7 @@
   "authors": [
     "Thiren Bunsee <thirenbunsee@gmail.com>"
   ],
-  "description": "Seed for new Angular applications",
+  "description": "A project seed for new angular 1.x applications",
   "main": "index.html",
   "private": true,
   "keywords": [
