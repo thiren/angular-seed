@@ -23,7 +23,7 @@ cd angular-seed
 If you just want to start a new project without the angular-seed commit history then you can do:
 
 ```bash
-git clone --depth=1 -b <branch_name> https://github.com/thiren/angular-seed.git <your-project-name>
+git clone --depth=1 -b <branch-name> https://github.com/thiren/angular-seed.git <your-project-name>
 ```
 
 The `depth=1` tells git to only pull down one commit worth of historical data.
@@ -101,7 +101,7 @@ karma.config.js
 The angular-seed app comes preconfigured with unit tests. These are written using a combination of the [Mocha][mocha] testing framework, the [Chai][chai] assertion library and [Sinon][sinon] which allows us to write standalone test spies, stubs and mocks. We run the unit tests using the [Karma Test Runner][karma]. We provide a Karma configuration file to run them.
 
 * The configuration is found in the `karma.conf.js` file
-* The unit tests are found next to the code they are testing or in the `tests/unit` directory and are named as `<file_name>.spec.js`
+* The unit tests are found next to the code they are testing or in the `tests/unit` directory and are named as `<file-name>.spec.js`
 
 The easiest way to run the unit tests is to use the supplied npm script:
 
