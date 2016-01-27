@@ -21,6 +21,7 @@
         $compileProvider.debugInfoEnabled(configs.debugInfoEnabled);
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
+        $urlMatcherFactoryProvider.caseInsensitive(true);
         $urlMatcherFactoryProvider.strictMode(false);
         $urlRouterProvider.otherwise("/home");
 
@@ -52,15 +53,11 @@
 
     function run($rootScope) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //event.preventDefault();
-            // transitionTo() promise will be rejected with
-            // a 'transition prevented' error
+
         });
-        //$state.go("lazy.state", {a:1, b:2}, {inherit:false});
+
         $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-            //console.log(unfoundState.to); // "lazy.state"
-            //console.log(unfoundState.toParams); // {a:1, b:2}
-            //console.log(unfoundState.options); // {inherit:false} + default options
+
         });
     }
 })();

@@ -182,16 +182,15 @@ gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
     ], {
         read: false
     });
+    var options = {
+        ignorePath: config.outputPaths.injectIgnoreString,
+        addRootSlash: false,
+        read: false
+    };
     console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
-        .pipe(inject(jsSources, {
-            ignorePath: config.outputPaths.injectIgnoreString,
-            addRootSlash: true
-        }))
-        .pipe(inject(cssSources, {
-            ignorePath: config.outputPaths.injectIgnoreString,
-            addRootSlash: true
-        }))
+        .pipe(inject(jsSources, options))
+        .pipe(inject(cssSources, options))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
