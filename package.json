@@ -16,7 +16,6 @@
     "type": "git",
     "url": "git+https://github.com/thiren/angular-seed.git"
   },
-  "private": true,
   "keywords": [
     "angular"
   ],
