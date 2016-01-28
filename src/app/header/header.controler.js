@@ -7,6 +7,8 @@
     controller.$inject = ['$scope'];
 
     function controller($scope) {
-
+        $scope.vm = {
+            header: 'Header'
+        }
     }
 })();
