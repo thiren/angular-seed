@@ -5,12 +5,14 @@
   "main": "index.html",
   "scripts": {
     "postinstall": "bower install",
-
     "prestart": "npm install",
     "start": "gulp watch --env=dev",
-
-    "pretest": "npm install | gulp constants --env=production",
-    "test": "karma start karma.conf.js"
+    "pretest": "npm install | gulp constants --env=dev",
+    "test": "karma start karma.conf.js",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor.conf.js"
   },
   "repository": {
     "type": "git",
@@ -63,6 +65,7 @@
     "karma-sinon-chai": "1.1.0",
     "main-bower-files": "2.11.1",
     "mocha": "2.4.3",
+    "protractor": "3.0.0",
     "yargs": "3.32.0"
   }
 }
