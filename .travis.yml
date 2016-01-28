@@ -16,6 +16,9 @@ cache:
     - bower_components
 
 install:
+  # Enable browser testing
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   # Check the size of caches
   - du -sh ./node_modules ./bower_components/ || true
   # Disable the spinner, it looks bad on Travis
@@ -24,10 +27,11 @@ install:
   - npm config set loglevel http
   # Install npm dependencies and ensure that npm cache is not stale
   - npm install
-
-before_script:
-  - npm install -g gulp
+  - npm run update-webdriver
+  # Give server time to start
+  - sleep 1
 
 script:
-  - gulp --env=production
-  - karma start karma.conf.js
+  - node_modules/.bin/gulp --env=production
+  - node_modules/.bin/karma start karma.conf.js
+  #- node_modules/.bin/protractor e2e-tests/protractor.conf.js --browser=firefox
