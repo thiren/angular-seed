@@ -3,6 +3,13 @@ sudo: true
 dist: trusty
 node_js:
   - '5.5'
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 # whitelist
 branches:
@@ -16,6 +23,9 @@ cache:
     - bower_components
 
 install:
+  # Enable browser testing
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   # Check the size of caches
   - du -sh ./node_modules ./bower_components/ || true
   # Disable the spinner, it looks bad on Travis
@@ -24,10 +34,11 @@ install:
   - npm config set loglevel http
   # Install npm dependencies and ensure that npm cache is not stale
   - npm install
-
-before_script:
-  - npm install -g gulp
+  - npm run update-webdriver
 
 script:
-  - gulp --env=production
-  - karma start karma.conf.js
+  - node_modules/.bin/gulp --env=production
+  - node_modules/.bin/karma start karma.conf.js
+  - node_modules/.bin/gulp start &
+  - sleep 3
+  - node_modules/.bin/protractor protractor.conf.js --browser=firefox

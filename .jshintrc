@@ -72,14 +72,15 @@
     // Custom Globals
     "globals": {
       "angular"     : true,
+      "browser"     : true,
       "define"      : false,
       "jasmine"     : false,
-      "require"     : false,
+      "require"     : true,
       "exports"     : false,
       "module"      : false,
-      "describe"    : false,
+      "describe"    : true,
       "before"      : false,
-      "beforeEach"  : false,
+      "beforeEach"  : true,
       "after"       : false,
       "afterEach"   : false,
       "it"          : false,
