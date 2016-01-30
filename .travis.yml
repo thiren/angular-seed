@@ -33,5 +33,5 @@ script:
   - node_modules/.bin/gulp --env=production
   - node_modules/.bin/karma start karma.conf.js
   - node_modules/.bin/gulp start
-  - sleep 10
+  - sleep 1
   - node_modules/.bin/protractor protractor.conf.js --browser=firefox
