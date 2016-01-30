@@ -3,6 +3,13 @@ sudo: true
 dist: trusty
 node_js:
   - '5.5'
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 # whitelist
 branches:
@@ -33,5 +40,5 @@ script:
   - node_modules/.bin/gulp --env=production
   - node_modules/.bin/karma start karma.conf.js
   - node_modules/.bin/gulp start
-  - sleep 1
+  - sleep 3
   - node_modules/.bin/protractor protractor.conf.js --browser=firefox
