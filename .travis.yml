@@ -39,6 +39,6 @@ install:
 script:
   - node_modules/.bin/gulp --env=production
   - node_modules/.bin/karma start karma.conf.js
-  - node_modules/.bin/gulp start
+  - node_modules/.bin/gulp start &
   - sleep 3
   - node_modules/.bin/protractor protractor.conf.js --browser=firefox
