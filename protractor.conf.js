@@ -3,8 +3,6 @@ exports.config = {
 
     allScriptsTimeout: 11000,
 
-    seleniumAddress: 'http://localhost:4444/wd/hub',
-
     specs: [
         './tests/e2e/**/*.js'
     ],
@@ -14,6 +12,19 @@ exports.config = {
     },
 
     baseUrl: 'http://localhost:9000',
+
+    seleniumAddress: 'http://localhost:4444/wd/hub',
+
+    onPrepare: function() {
+        // Disable animations so e2e tests run more quickly
+        var disableNgAnimate = function() {
+            angular.module('disableNgAnimate', []).run(['$animate', function($animate) {
+                $animate.enabled(false);
+            }]);
+        };
+
+        browser.addMockModule('disableNgAnimate', disableNgAnimate);
+    },
 
     framework: 'mocha',
 

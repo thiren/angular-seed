@@ -1,10 +1,16 @@
 'use strict';
 
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
+
+chai.use(chaiAsPromised);
+var expect = chai.expect;
+
 describe('my app', function() {
 
-    it('should automatically redirect to /home when location hash/fragment is empty', function() {
+    it('should automatically redirect to /home when location is empty', function() {
         browser.get('index.html');
-        expect(browser.getLocationAbsUrl()).toMatch("/home");
+        expect(browser.getLocationAbsUrl()).to.eventually.equal("/home");
     });
 
 
