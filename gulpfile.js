@@ -217,6 +217,15 @@ gulp.task('connect', ['build-index'], function () {
     });
 });
 
+gulp.task('start', function () {
+    connect.server({
+        root: config.outputPaths.root,
+        port: 9000,
+        livereload: false,
+        fallback: config.outputPaths.root + '/index.html'
+    });
+});
+
 function shouldRevision() {
     if (environment === 'dev' || environment === 'localqa') {
         return false;
