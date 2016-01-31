@@ -33,7 +33,7 @@ The `depth=1` tells git to only pull down one commit worth of historical data.
 We have two kinds of dependencies in this project: tools and client-side framework code. The tools help us manage and test the application.
 
 * We get the tools we depend upon via `npm`, the [node package manager][npm]
-* We get the client-side framework code via `bower`, a [client-side code package manager][bower]
+* We get the client-side framework code via `bower`, a [front-end package manager][bower]
 
 We have preconfigured `npm` to automatically run `bower` so we can simply do:
 
@@ -98,7 +98,7 @@ karma.config.js
 ## Testing
 
 ### Running Unit Tests
-The angular-seed app comes preconfigured with unit tests. These are written using a combination of the [Mocha][mocha] testing framework, the [Chai][chai] assertion library and [Sinon][sinon] which allows us to write standalone test spies, stubs and mocks. We run the unit tests using the [Karma Test Runner][karma]. We provide a Karma configuration file to run them.
+The angular-seed app comes preconfigured with unit tests. These are written using a combination of the [Mocha][mocha] testing framework, the [Chai][chai] assertion library and [Sinon][sinon] which allows us to write standalone test spies, stubs and mocks. We run the unit tests using the [Karma][karma] test runner. We provide a Karma configuration file to run them.
 
 * The configuration is found in the `karma.conf.js` file
 * The unit tests are found next to the code they are testing or in the `tests/unit` directory and are named as `<file-name>.spec.js`
@@ -110,6 +110,35 @@ npm test
 ```
 
 This script will start the Karma test runner which will execute the unit tests.
+
+### End to end testing
+
+The angular-seed app comes with end-to-end tests, again written in [Mocha][mocha] and [Chai][chai]. These tests are run with the [Protractor][protractor] End-to-End test runner. It uses native events and has special features for Angular applications.
+
+* the configuration is found in `protractor.conf.js`
+* the end-to-end tests are found in `tests/e2e/scenarios.js`
+
+Protractor simulates interaction with a web app and verifies that the application responds correctly. Therefore, our web server needs to be serving up the application, so that Protractor can interact with it.
+
+```
+gulp watch
+```
+
+In addition, since Protractor is built upon WebDriver we need to install this. The angular-seed project comes with a predefined script to do this:
+
+```
+npm run update-webdriver
+```
+
+This will download and install the latest version of the stand-alone WebDriver tool.
+
+Once you have ensured that the development web server hosting our application is up and running and WebDriver is updated, you can run the end-to-end tests using the supplied npm script:
+
+```
+npm run protractor
+```
+
+This script will execute the end-to-end tests against the application being hosted on the development server.
 
 ## Continuous Integration
 
