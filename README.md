@@ -86,10 +86,12 @@ src/
     main.less
   favicon.ico
   index.html
-tests/
+test/
   unit/
     header/
       header.controller.spec.js
+  e2e/
+    scenarios.js
 build.config.js
 gulpfile.js
 karma.config.js
@@ -101,7 +103,7 @@ karma.config.js
 The angular-seed app comes preconfigured with unit tests. These are written using a combination of the [Mocha][mocha] testing framework, the [Chai][chai] assertion library and [Sinon][sinon] which allows us to write standalone test spies, stubs and mocks. We run the unit tests using the [Karma][karma] test runner. We provide a Karma configuration file to run them.
 
 * The configuration is found in the `karma.conf.js` file
-* The unit tests are found next to the code they are testing or in the `tests/unit` directory and are named as `<file-name>.spec.js`
+* The unit tests are found next to the code they are testing or in the `test/unit` directory and are named as `<file-name>.spec.js`
 
 The easiest way to run the unit tests is to use the supplied npm script:
 
@@ -116,7 +118,7 @@ This script will start the Karma test runner which will execute the unit tests.
 The angular-seed app comes with end-to-end tests, again written in [Mocha][mocha] and [Chai][chai]. These tests are run with the [Protractor][protractor] End-to-End test runner. It uses native events and has special features for Angular applications.
 
 * the configuration is found in `protractor.conf.js`
-* the end-to-end tests are found in `tests/e2e/scenarios.js`
+* the end-to-end tests are found in `test/e2e/scenarios.js`
 
 Protractor simulates interaction with a web app and verifies that the application responds correctly. Therefore, our web server needs to be serving up the application, so that Protractor can interact with it.
 
