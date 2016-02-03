@@ -2,11 +2,14 @@
     "use strict";
 
     angular.module('angular-seed.header')
-        .controller('HeaderController', controller);
+        .controller('HeaderCtrl', headerCtrl);
 
-    controller.$inject = ['$scope'];
+    headerCtrl.$inject = ['$scope'];
 
-    function controller($scope) {
+    function headerCtrl($scope) {
+        $scope.$on('$viewContentLoaded', function(event){
+            // fired once the view is loaded, after the DOM is rendered.
+        });
         $scope.vm = {
             header: 'Header'
         }
