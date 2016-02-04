@@ -39,7 +39,7 @@
                 views: {
                     "header@app": {
                         templateUrl: "header/header.tpl.html",
-                        controller: 'HeaderController'
+                        controller: 'HeaderCtrl'
                     },
                     "content@app": {
                         templateUrl: "home/home.tpl.html"
@@ -55,7 +55,19 @@
 
         });
 
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+        });
+
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            
+        });
+
         $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+
+        });
+
+        $rootScope.$on('$viewContentLoading', function (event, viewConfig) {
 
         });
     }
