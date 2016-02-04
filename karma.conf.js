@@ -6,10 +6,15 @@ module.exports = function(config){
 
         files : [
             'bower_components/angular/angular.js',
+            'bower_components/angular-animate/angular-animate.js',
+            'bower_components/angular-aria/angular-aria.js',
             'bower_components/angular-resource/angular-resource.js',
+            'bower_components/angular-messages/angular-messages.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'src/configs/**/*.js',
+            'src/app/app.module.js',
+            'src/app/**/*.module.js',
             'src/app/**/*.js',
             'src/app/**/*.spec.js',
             'test/unit/**/*.spec.js'
