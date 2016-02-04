@@ -9,6 +9,10 @@ app.use(compression());
 
 app.use(express.static(__dirname + '/build'));
 
+app.get('/*', function(req, res) {
+    res.sendFile(__dirname + '/build/index.html')
+});
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
