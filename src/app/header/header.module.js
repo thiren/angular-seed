@@ -6,7 +6,6 @@
         'ngAria',
         'ngMessages',
         'ngResource',
-        'angular-seed.constants',
-        'angular-seed.views'
+        'angular-seed.constants'
     ]);
 })();
