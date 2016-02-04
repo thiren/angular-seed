@@ -35,13 +35,8 @@ script:
 before_deploy:
 - sh heroku/pre-deploy.sh
 deploy:
+  app: angular-see
   provider: heroku
-  buildpack: nodejs
-  strategy: git
   api_key:
     secure: FbRrSr98/hX046pThrsKUKA6CCxB8MMSs4f1ZXUx+UMpSqcIEY9z/tcK/pVoDRoh5AbD4DL8lliAzYdiT9m//epjqAeZKsPA7USVsqEEAhRYHXynb0s7uEb0fxgTd1xXTQDyzpm49YILRB6pFDFJAmlkw6l4KDypH8UbDDD4mTPqtI6iZpC2Tro9r4V4+FqoN9Md0qCZmtaHQJDYa5MGPMHTUn3OqEDXk9ntMJRwq2A0dvMvjjcB3UNaYVE2PLgrPeK4oJwiaEXdpKgVVNQpa6i3YEM4BSsqeFmLkkKUetlLltNGUHtdA7QZVzoc+TYc8qq+C/yZq0tPG63UZZ1kojgQBk/wHY9eLpIOaGz7uCYwD/hBAwaAAp49ZDHZODQ0phgSWOn2JNzIqLI57KRtTHYLtgV/S9Cb/Oml6iN32xmEbmlEEh9PilaSBKGWmLzgsBNDr/DKwjfR58dneSJ2qC4w3Jpz4UEYCGpgVZu+qHQHBH6dLqnLNshrpYr/DrVmLDOKNfuoo9Aq4jRrzEEjYcil4YjltFXLx3Z3s+19qTl6Q9u3uWYt2sRpBtNVGD5w1JRRB6NIcsQRUzLjXVLYF0M7vPAWvZbg8t3Chxlo/c+figWhMDKC0nOsgzW8SoqmFeHgpPuI2IRBs5ygFwLZSOQURvqMheJxriDGHzGXuNQ=
-  app: angular-see
-  on:
-    branch: core/heroku-deployment
-  run:
-  - rake hello
+  on: core/heroku-deployment
