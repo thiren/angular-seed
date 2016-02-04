@@ -2,43 +2,52 @@ language: node_js
 sudo: true
 dist: trusty
 node_js:
-  - '5.5'
+- '5.5'
+
+branches:
+  only:
+  - master
+  - "/^core\\/.+$/"
+
 addons:
   firefox: latest
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
-
-# whitelist
-branches:
-  only:
-    - master
-    - /^core\/.+$/
+    - google-chrome-stable
 
 cache:
   directories:
-    - node_modules
-    - bower_components
+  - node_modules
+  - bower_components
 
 install:
-  # Enable browser testing
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  # Check the size of caches
-  - du -sh ./node_modules ./bower_components/ || true
-  # Disable the spinner, it looks bad on Travis
-  - npm config set spin false
-  # Log HTTP requests
-  - npm config set loglevel http
-  # Install npm dependencies and ensure that npm cache is not stale
-  - npm install
-  - npm run update-webdriver
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- du -sh ./node_modules ./bower_components/ || true
+- npm config set spin false
+- npm config set loglevel http
+- npm install
+- npm run update-webdriver
 
 script:
-  - node_modules/.bin/gulp --env=production
-  - node_modules/.bin/karma start karma.conf.js
-  - node_modules/.bin/gulp start &
-  - sleep 3
-  - node_modules/.bin/protractor protractor.conf.js --browser=firefox
+- node_modules/.bin/gulp --env=production
+- node_modules/.bin/karma start karma.conf.js
+- node_modules/.bin/gulp start &
+- sleep 3
+- node_modules/.bin/protractor protractor.conf.js --browser=firefox
+
+before_deploy:
+- sh heroku/pre-deploy.sh
+
+deploy:
+  provider: heroku
+  buildpack: nodejs
+  strategy: git
+  api_key:
+    secure: m0RAtHlbOdKrOBd9Fg7fnAtK3XzwXaa38h1yoB89VNTL4xvVGOGFr2rpP1NO5zJjuQWTn3HBUDaBfQ9WTZvd3g1h4zQD88aMUwUDH4un/q45QKu0KV/p61B/DLpYqU9p5as9uUMy1W99QUsiOJgKOTBSMbVpoYyPP26IqPVpQByMV3rusH1SQ2fqYygcGPQQZntOhgShm4s8h96tH3S6TdeOq2u14chhmhhUrmRPJs1+CZvKoHri+mBLJsHgWudocutCenLMnXIvfGQrmEgLaFgXiZm+nz9i1mUr0fesYgpPalI3DLG+cSqocr8DFF4XXo0aMuq93ghS6+YJqsZZXArwsy8j7X8XeFbP7IoXDQ5IJu8EUSgd3eIsIM3vYHwl3UlVJ02JSkJJMp0fYdRHNiP4Ty5Xhd5n1Teru1INGi328xcemuEXiV7WAmsp7HHPBmEj0kl5u5Vhjo4eVb+NdMzgbJExFYSoSAHCLvx0doxqNxK67Azy5PQm9KDNI3JCqbmT4szDlngP9kkRij//vjCPvWDJyTJeTWEyKuCn+JFTKDYK1xTTYW+ZQARzaCh5EKUdx2j+PA/H/ycY/qxMUjBd4zJ4cZnT9tTB1OsPm/WhecDs0Xt6Mla6p27GEx2luNOXTGc2F4Z4Ig62xQjFBRr82NWFpBU80wdBHEXlyWg=
+  on:
+    branch: core/heroku-deployment
+  run:
+  - rake hello
