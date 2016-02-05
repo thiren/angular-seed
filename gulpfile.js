@@ -8,7 +8,7 @@ var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
-var html2js = require('gulp-ng-html2js');
+var templateCache = require('gulp-angular-templatecache');
 var eventStream = require('event-stream');
 var argv = require('yargs').argv;
 var gulpNgConfig = require('gulp-ng-config');
@@ -77,6 +77,25 @@ gulp.task('less', function () {
         .pipe(connect.reload());
 });
 
+gulp.task('html', function () {
+    var htmlminOptions = {
+        collapseWhitespace: true,
+        removeComments: true
+    };
+    var options = {
+        standalone: true,
+        module: config.names.templatesModule,
+        moduleSystem: 'IIFE'
+    };
+    return gulp.src(config.appFiles.html)
+        .pipe(htmlmin(htmlminOptions))
+        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(gulpIf(shouldMinify(), uglify()))
+        .pipe(gulpIf(shouldRevision(), rev()))
+        .pipe(gulp.dest(config.outputPaths.templates))
+        .pipe(connect.reload());
+});
+
 gulp.task('vendor-css', function () {
     var options = {
         filter: '**/*.css',
@@ -90,30 +109,15 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-js', ['constants'], function () {
-    return eventStream.merge(htmlJs(), appJs())
+    gulp.src(config.appFiles.js)
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
-        .pipe(concat(config.names.output.appJs))
         .pipe(babel({presets: ['es2015']}))
+        .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js))
         .pipe(connect.reload());
-
-    function appJs() {
-        return gulp.src(config.appFiles.js);
-    }
-
-    function htmlJs() {
-        var opts = {
-            removeComments: true
-        };
-        return gulp.src(config.appFiles.html)
-            .pipe(gulpIf(shouldMinify(), htmlmin(opts)))
-            .pipe(html2js({
-                moduleName: config.names.viewsModule
-            }));
-    }
 });
 
 gulp.task('vendor-js', function () {
@@ -199,11 +203,12 @@ gulp.task('default', ['build-index']);
 
 gulp.task('prep', ['bower', 'clean']);
 
-gulp.task('work', ['vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
+gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
-    gulp.watch([config.watch.js, config.watch.html], ['app-js']);
+    gulp.watch([config.watch.js, config.watch.index], ['app-js']);
+    gulp.watch(config.watch.html, ['html']);
     gulp.watch(config.watch.images, ['images']);
     gulp.watch(config.watch.constants, ['app-js']);
 });
