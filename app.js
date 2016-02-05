@@ -1,12 +1,14 @@
 'use strict';
 var logger = require('morgan');
 var express = require('express');
+var favicon = require('express-favicon');
 var compression = require('compression');
 var app = express();
 
 app.use(logger('dev'));
 app.use(compression());
 
+app.use(favicon(__dirname + '/build/favicon.ico'));
 app.use(express.static(__dirname + '/build'));
 
 app.get('/*', function(req, res) {
