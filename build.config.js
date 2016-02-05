@@ -22,7 +22,7 @@ module.exports = {
     taskFiles: {
         jshint: ['./src/app/**/*.js']
     },
-    buildFiles: ['./build/**/*.*', './build/*'],
+    buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js', './src/templates'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',

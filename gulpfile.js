@@ -109,8 +109,8 @@ gulp.task('app-js', ['constants', 'html'], function () {
     gulp.src(config.appFiles.js)
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
-        .pipe(concat(config.names.output.appJs))
         .pipe(babel({presets: ['es2015']}))
+        .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js))
@@ -200,7 +200,7 @@ gulp.task('default', ['build-index']);
 
 gulp.task('prep', ['bower', 'clean']);
 
-gulp.task('work', ['html', 'constants', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
+gulp.task('work', ['vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
