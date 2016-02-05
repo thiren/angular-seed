@@ -3,6 +3,7 @@ src
 heroku
 test
 bower_components
+node_modules
 .idea
 
 .bowerrc
