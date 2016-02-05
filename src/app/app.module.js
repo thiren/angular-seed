@@ -8,8 +8,8 @@
             'ngResource',
             'ui.router',
             'angular-seed.constants',
-            'angular-seed.views',
-            'angular-seed.header'
+            'angular-seed.header',
+            'angular-seed.templates'
         ])
         .config(configure)
         .run(run);
@@ -60,7 +60,7 @@
         });
 
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            
+
         });
 
         $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
