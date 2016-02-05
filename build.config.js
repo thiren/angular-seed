@@ -1,7 +1,7 @@
 module.exports = {
     environments: ['dev', 'localqa', 'qa', 'production', 'test'],
     appFiles: {
-        js: ['./src/app/**/*.js', './src/configs/**/*.js', './src/templates/**/*.js', '!./src/app/**/*.spec.js'],
+        js: ['./src/app/**/*.js', './src/configs/**/*.js', './templates/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
         less: './src/styles/main.less',
         html: ['./src/app/**/*.html'],
@@ -22,7 +22,7 @@ module.exports = {
     taskFiles: {
         jshint: ['./src/app/**/*.js']
     },
-    buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js', './src/templates'],
+    buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js', './templates'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',
@@ -30,7 +30,7 @@ module.exports = {
         images: './build/images',
         root: './build',
         constants: './src/configs',
-        templates: './src/templates',
+        templates: './templates',
         injectIgnoreString: '/build'
     },
     names: {

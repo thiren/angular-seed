@@ -20,7 +20,7 @@ coverage
 build
 build/Release
 src/configs/**/*.js
-src/templates
+templates
 test_out
 
 # Dependency directory
