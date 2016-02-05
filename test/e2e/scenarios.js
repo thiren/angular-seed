@@ -26,14 +26,14 @@ describe('protractor library', function() {
     });
 
     it('should be able to redirect', function() {
-        browser.get('index.html');
+        browser.get('/');
         expect(browser.getLocationAbsUrl()).to.eventually.equal("/home");
     });
 
     it('should wrap webdriver', function() {
         // Mocha will report the spec as slow if it goes over this time in ms.
         this.slow(6000);
-        browser.get('index.html');
+        browser.get('/home');
         expect(browser.getTitle()).to.eventually.equal('Angular Seed');
     });
 });
