@@ -33,7 +33,7 @@ script:
 - sleep 3
 - node_modules/.bin/protractor protractor.conf.js --browser=firefox
 before_deploy:
-- ./heroku/pre-deploy.sh
+- chmod ugo+x ./heroku/pre-deploy.sh
 deploy:
   provider: heroku
   buildpack: nodejs
