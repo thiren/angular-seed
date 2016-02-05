@@ -19,20 +19,20 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "1.5.0-rc.2",
+    "angular": "1.5.0",
     "angular-bootstrap": "1.1.1",
     "angular-ui-router": "ui-router#~0.2.17",
-    "angular-animate": "1.5.0-rc.2",
-    "angular-aria": "1.5.0-rc.2",
-    "angular-messages": "1.5.0-rc.2",
-    "angular-resource": "1.5.0-rc.2",
+    "angular-animate": "1.5.0",
+    "angular-aria": "1.5.0",
+    "angular-messages": "1.5.0",
+    "angular-resource": "1.5.0"
     "bootstrap": "3.3.6"
   },
   "devDependencies": {
-    "angular-mocks": "1.5.0-rc.2"
+    "angular-mocks": "1.5.0"
   },
   "resolutions": {
-    "angular": "1.5.0-rc.2"
+    "angular": "1.5.0"
   },
   "overrides": {
     "bootstrap": {

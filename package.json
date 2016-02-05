@@ -7,12 +7,12 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "gulp watch --env=dev",
-    "pretest": "npm install | gulp constants --env=dev",
+    "pretest": "npm install | gulp constants --env=test | gulp html --env=test",
     "test": "karma start karma.conf.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor.conf.js"
+    "protractor": "protractor protractor.conf.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "event-stream": "3.3.2",
     "gulp": "3.9.0",
     "gulp-angular-filesort": "1.1.1",
+    "gulp-angular-templatecache": "1.8.0",
     "gulp-autoprefixer": "3.1.0",
     "gulp-babel": "6.1.2",
     "gulp-bower": "0.0.13",
@@ -50,7 +51,6 @@
     "gulp-less": "3.0.5",
     "gulp-ng-annotate": "1.1.0",
     "gulp-ng-config": "1.2.1",
-    "gulp-ng-html2js": "0.2.2",
     "gulp-rev": "6.0.1",
     "gulp-sync": "0.1.4",
     "gulp-uglify": "1.5.1",
