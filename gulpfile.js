@@ -79,16 +79,21 @@ gulp.task('less', function () {
 
 gulp.task('html', function () {
     var htmlminOptions = {
+        collapseWhitespace: true,
         removeComments: true
     };
     var options = {
+        standalone: true,
         module: config.names.templatesModule,
         moduleSystem: 'IIFE'
     };
     return gulp.src(config.appFiles.html)
-        .pipe(gulpIf(shouldMinify(), htmlmin(htmlminOptions)))
-        .pipe(templateCache(config.names.templatesFile, options))
-        .pipe(gulp.dest(config.outputPaths.templates));
+        .pipe(htmlmin(htmlminOptions))
+        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(gulpIf(shouldMinify(), uglify()))
+        .pipe(gulpIf(shouldRevision(), rev()))
+        .pipe(gulp.dest(config.outputPaths.templates))
+        .pipe(connect.reload());
 });
 
 gulp.task('vendor-css', function () {
@@ -103,12 +108,12 @@ gulp.task('vendor-css', function () {
         .pipe(gulp.dest(config.outputPaths.css));
 });
 
-gulp.task('app-js', ['constants', 'html'], function () {
+gulp.task('app-js', ['constants'], function () {
     gulp.src(config.appFiles.js)
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
-        .pipe(concat(config.names.output.appJs))
         .pipe(babel({presets: ['es2015']}))
+        .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js))
@@ -198,12 +203,12 @@ gulp.task('default', ['build-index']);
 
 gulp.task('prep', ['bower', 'clean']);
 
-gulp.task('work', ['html', 'constants', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
+gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
     gulp.watch([config.watch.js, config.watch.index], ['app-js']);
-    gulp.watch(config.watch.html, ['app-js']);
+    gulp.watch(config.watch.html, ['html']);
     gulp.watch(config.watch.images, ['images']);
     gulp.watch(config.watch.constants, ['app-js']);
 });

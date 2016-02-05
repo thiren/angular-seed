@@ -7,12 +7,12 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "gulp watch --env=dev",
-    "pretest": "npm install | gulp constants --env=dev",
+    "pretest": "npm install | gulp constants --env=test | gulp html --env=test",
     "test": "karma start karma.conf.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor.conf.js"
+    "protractor": "protractor protractor.conf.js"
   },
   "repository": {
     "type": "git",
