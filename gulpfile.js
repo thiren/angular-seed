@@ -79,14 +79,16 @@ gulp.task('less', function () {
 
 gulp.task('html', function () {
     var htmlminOptions = {
+        collapseWhitespace: true,
         removeComments: true
     };
     var options = {
+        standalone: true,
         module: config.names.templatesModule,
         moduleSystem: 'IIFE'
     };
     return gulp.src(config.appFiles.html)
-        .pipe(gulpIf(shouldMinify(), htmlmin(htmlminOptions)))
+        .pipe(htmlmin(htmlminOptions))
         .pipe(templateCache(config.names.templatesFile, options))
         .pipe(gulp.dest(config.outputPaths.templates));
 });

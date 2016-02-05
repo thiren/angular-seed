@@ -7,9 +7,9 @@
             'ngMessages',
             'ngResource',
             'ui.router',
+            'angular-seed.templates',
             'angular-seed.constants',
-            'angular-seed.header',
-            'angular-seed.templates'
+            'angular-seed.header'
         ])
         .config(configure)
         .run(run);
