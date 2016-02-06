@@ -1,20 +1,20 @@
 'use strict';
 var util = require('util');
 var gulp = require('gulp');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var del = require('del');
 var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
-var html2js = require('gulp-ng-html2js');
+var templateCache = require('gulp-angular-templatecache');
 var eventStream = require('event-stream');
 var argv = require('yargs').argv;
 var gulpNgConfig = require('gulp-ng-config');
 var less = require('gulp-less');
 var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
+var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
 var jsHint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
@@ -38,17 +38,14 @@ gulp.task('lint', function () {
         .pipe(jsHint.reporter('default'));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', function (callback) {
     var options = {
         force: true
     };
     del(config.buildFiles, options).then(function (paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
+        callback();
     });
-});
-
-gulp.task('bower', function () {
-    return bower(config.appFiles.bowerRoot);
 });
 
 gulp.task('constants', function () {
@@ -77,6 +74,25 @@ gulp.task('less', function () {
         .pipe(connect.reload());
 });
 
+gulp.task('html', function () {
+    var htmlminOptions = {
+        collapseWhitespace: true,
+        removeComments: true
+    };
+    var options = {
+        standalone: true,
+        module: config.names.templatesModule,
+        moduleSystem: 'IIFE'
+    };
+    return gulp.src(config.appFiles.html)
+        .pipe(htmlmin(htmlminOptions))
+        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(gulpIf(shouldMinify(), uglify()))
+        .pipe(gulpIf(shouldRevision(), rev()))
+        .pipe(gulp.dest(config.outputPaths.templates))
+        .pipe(connect.reload());
+});
+
 gulp.task('vendor-css', function () {
     var options = {
         filter: '**/*.css',
@@ -90,30 +106,15 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-js', ['constants'], function () {
-    return eventStream.merge(htmlJs(), appJs())
+    gulp.src(config.appFiles.js)
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
-        .pipe(concat(config.names.output.appJs))
         .pipe(babel({presets: ['es2015']}))
+        .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.js))
         .pipe(connect.reload());
-
-    function appJs() {
-        return gulp.src(config.appFiles.js);
-    }
-
-    function htmlJs() {
-        var opts = {
-            removeComments: true
-        };
-        return gulp.src(config.appFiles.html)
-            .pipe(gulpIf(shouldMinify(), htmlmin(opts)))
-            .pipe(html2js({
-                moduleName: config.names.viewsModule
-            }));
-    }
 });
 
 gulp.task('vendor-js', function () {
@@ -170,15 +171,18 @@ gulp.task('images', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
-    var jsSources = gulp.src([
-        config.outputPaths.js + '/**/*.js'
+gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
+    var jsFiles = gulp.src([
+        config.outputPaths.js + '/vendor*.js',
+        config.outputPaths.js + '/templates*.js',
+        config.outputPaths.js + '/build*.js'
     ], {
-        read: true
-    }).pipe(angularFilesort());
+        read: false
+    });
 
-    var cssSources = gulp.src([
-        config.outputPaths.css + '/**/*.css'
+    var cssFiles = gulp.src([
+        config.outputPaths.css + '/vendor*.css',
+        config.outputPaths.css + '/build*.css'
     ], {
         read: false
     });
@@ -189,21 +193,21 @@ gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
     };
     console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
-        .pipe(inject(jsSources, options))
-        .pipe(inject(cssSources, options))
+        .pipe(wait(1000))
+        .pipe(inject(cssFiles, options))
+        .pipe(inject(jsFiles, options))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
 
 gulp.task('default', ['build-index']);
 
-gulp.task('prep', ['bower', 'clean']);
-
-gulp.task('work', ['vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
+gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
-    gulp.watch([config.watch.js, config.watch.html], ['app-js']);
+    gulp.watch(config.watch.js, ['app-js']);
+    gulp.watch(config.watch.html, ['html']);
     gulp.watch(config.watch.images, ['images']);
     gulp.watch(config.watch.constants, ['app-js']);
 });

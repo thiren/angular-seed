@@ -18,5 +18,10 @@
     "configs": {
       "debugInfoEnabled": false
     }
+  },
+  "test": {
+    "configs": {
+      "debugInfoEnabled": true
+    }
   }
 }

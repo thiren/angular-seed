@@ -1,5 +1,5 @@
 module.exports = {
-    environments: ['dev', 'localqa', 'qa', 'production'],
+    environments: ['dev', 'localqa', 'qa', 'production', 'test'],
     appFiles: {
         js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
@@ -22,7 +22,7 @@ module.exports = {
     taskFiles: {
         jshint: ['./src/app/**/*.js']
     },
-    buildFiles: ['./build/**/*.*', './build/*'],
+    buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',
@@ -30,24 +30,27 @@ module.exports = {
         images: './build/images',
         root: './build',
         constants: './src/configs',
+        templates: './build/scripts',
         injectIgnoreString: '/build'
     },
     names: {
-        mainModule: 'angular-seed',
-        viewsModule: 'angular-seed.views',
-        constantsModule: 'angular-seed.constants',
+        mainModule: 'angularSeed',
+        templatesModule: 'angularSeed.templates',
+        constantsModule: 'angularSeed.constants',
         output: {
             appCss: 'build.css',
             vendorCss: 'vendor.css',
             appJs: 'build.js',
-            vendorJs: 'vendor.js'
+            vendorJs: 'vendor.js',
+            templatesJs: 'templates.js'
         }
     },
     watch: {
         less: './src/styles/**/*.less',
         js: ['./src/app/**/*.js', '!./src/app/**/*.spec.js'],
         images: './src/images/**/*.{svg,png,jpg,jpeg,webp,gif}',
-        html: './src/**/*.html',
+        html: './src/app/**/*.html',
+        index: './src/index.html',
         constants: './src/configs/constants.json'
     }
 };

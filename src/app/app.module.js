@@ -1,15 +1,15 @@
 (function () {
     'use strict';
 
-    angular.module('angular-seed', [
+    angular.module('angularSeed', [
             'ngAnimate',
             'ngAria',
             'ngMessages',
             'ngResource',
             'ui.router',
-            'angular-seed.constants',
-            'angular-seed.views',
-            'angular-seed.header'
+            'angularSeed.templates',
+            'angularSeed.constants',
+            'angularSeed.header'
         ])
         .config(configure)
         .run(run);
@@ -60,7 +60,7 @@
         });
 
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            
+
         });
 
         $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
