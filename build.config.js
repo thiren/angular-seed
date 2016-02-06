@@ -34,9 +34,9 @@ module.exports = {
         injectIgnoreString: '/build'
     },
     names: {
-        mainModule: 'angular-seed',
-        templatesModule: 'angular-seed.templates',
-        constantsModule: 'angular-seed.constants',
+        mainModule: 'angularSeed',
+        templatesModule: 'angularSeed.templates',
+        constantsModule: 'angularSeed.constants',
         output: {
             appCss: 'build.css',
             vendorCss: 'vendor.css',
