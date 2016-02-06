@@ -207,7 +207,7 @@ gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
-    gulp.watch([config.watch.js, config.watch.index], ['app-js']);
+    gulp.watch(config.watch.js, ['app-js']);
     gulp.watch(config.watch.html, ['html']);
     gulp.watch(config.watch.images, ['images']);
     gulp.watch(config.watch.constants, ['app-js']);
