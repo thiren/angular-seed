@@ -1,7 +1,6 @@
 'use strict';
 var util = require('util');
 var gulp = require('gulp');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var del = require('del');
 var inject = require('gulp-inject');
@@ -15,6 +14,7 @@ var gulpNgConfig = require('gulp-ng-config');
 var less = require('gulp-less');
 var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
+var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
 var jsHint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
@@ -45,10 +45,6 @@ gulp.task('clean', function () {
     del(config.buildFiles, options).then(function (paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
     });
-});
-
-gulp.task('bower', function () {
-    return bower(config.appFiles.bowerRoot);
 });
 
 gulp.task('constants', function () {
@@ -174,12 +170,14 @@ gulp.task('images', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
+gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
     var jsSources = gulp.src([
-        config.outputPaths.js + '/**/*.js'
+        config.outputPaths.js + '/vendor*.js',
+        config.outputPaths.js + '/templates*.js',
+        config.outputPaths.js + '/build*.js'
     ], {
-        read: true
-    }).pipe(angularFilesort());
+        read: false
+    });
 
     var cssSources = gulp.src([
         config.outputPaths.css + '/**/*.css'
@@ -193,15 +191,14 @@ gulp.task('build-index', gulpSync.sync(['prep', 'work']), function () {
     };
     console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
-        .pipe(inject(jsSources, options))
+        .pipe(wait(1000))
         .pipe(inject(cssSources, options))
+        .pipe(inject(jsSources, options))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
 
 gulp.task('default', ['build-index']);
-
-gulp.task('prep', ['bower', 'clean']);
 
 gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
 
