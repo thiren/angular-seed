@@ -1,16 +1,16 @@
 (function () {
     'use strict';
 
-    angular.module('angular-seed', [
+    angular.module('angularSeed', [
             'ngAnimate',
             'ngAria',
             'ngMessages',
             'ngResource',
             'ui.bootstrap',
             'ui.router',
-            'angular-seed.templates',
-            'angular-seed.constants',
-            'angular-seed.header'
+            'angularSeed.templates',
+            'angularSeed.constants',
+            'angularSeed.header'
         ])
         .config(configure)
         .run(run);

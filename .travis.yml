@@ -35,6 +35,7 @@ install:
   # Install npm dependencies and ensure that npm cache is not stale
   - npm install
   - npm run update-webdriver
+  - node_modules/.bin/bower install
 
 script:
   - node_modules/.bin/gulp --env=production

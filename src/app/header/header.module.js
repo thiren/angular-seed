@@ -1,11 +1,11 @@
 (function () {
     "use strict";
 
-    angular.module('angular-seed.header', [
+    angular.module('angularSeed.header', [
         'ngAnimate',
         'ngAria',
         'ngMessages',
         'ngResource',
-        'angular-seed.constants'
+        'angularSeed.constants'
     ]);
 })();

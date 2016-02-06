@@ -1,8 +1,8 @@
 'use strict';
 
-describe('angular-seed.header module', function() {
+describe('angularSeed.header module', function() {
 
-    beforeEach(module('angular-seed.header'));
+    beforeEach(module('angularSeed.header'));
 
     describe('HeaderCtrl', function(){
         var scope, ctrl;
