@@ -38,12 +38,13 @@ gulp.task('lint', function () {
         .pipe(jsHint.reporter('default'));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', function (callback) {
     var options = {
         force: true
     };
     del(config.buildFiles, options).then(function (paths) {
         console.log('Deleted files/folders:\n', paths.join('\n'));
+        callback();
     });
 });
 
@@ -171,7 +172,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
-    var jsSources = gulp.src([
+    var jsFiles = gulp.src([
         config.outputPaths.js + '/vendor*.js',
         config.outputPaths.js + '/templates*.js',
         config.outputPaths.js + '/build*.js'
@@ -179,8 +180,9 @@ gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
         read: false
     });
 
-    var cssSources = gulp.src([
-        config.outputPaths.css + '/**/*.css'
+    var cssFiles = gulp.src([
+        config.outputPaths.css + '/vendor*.css',
+        config.outputPaths.css + '/build*.css'
     ], {
         read: false
     });
@@ -192,8 +194,8 @@ gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
     console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
         .pipe(wait(1000))
-        .pipe(inject(cssSources, options))
-        .pipe(inject(jsSources, options))
+        .pipe(inject(cssFiles, options))
+        .pipe(inject(jsFiles, options))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
