@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    angular.module('angular-seed.header')
+    angular.module('angularSeed.header')
         .controller('HeaderCtrl', headerCtrl);
 
     headerCtrl.$inject = ['$scope'];
