@@ -19,8 +19,8 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build
 build/Release
+test-dependencies
 src/configs/**/*.js
-templates
 test_out
 
 # Dependency directory

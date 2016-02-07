@@ -23,6 +23,7 @@ module.exports = {
         jshint: ['./src/app/**/*.js']
     },
     buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js'],
+    testFiles: ['./test-dependencies/**/*.*', './test-dependencies/*'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',
@@ -31,6 +32,7 @@ module.exports = {
         root: './build',
         constants: './src/configs',
         templates: './build/scripts',
+        testDependencies: './test-dependencies',
         injectIgnoreString: '/build'
     },
     names: {
