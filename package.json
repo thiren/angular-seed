@@ -7,7 +7,7 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "gulp watch --env=dev",
-    "pretest": "npm install | gulp constants --env=test | gulp html --env=test",
+    "pretest": "npm install | gulp test:build",
     "test": "karma start karma.conf.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
@@ -19,7 +19,11 @@
     "url": "git+https://github.com/thiren/angular-seed.git"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "gulp",
+    "karma",
+    "mocha",
+    "protractor"
   ],
   "author": "Thiren Bunsee <thirenbunsee@gmail.com>",
   "license": "MIT",
