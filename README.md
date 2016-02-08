@@ -75,7 +75,10 @@ src/
   app/
     header/
       header.controller.js
+      header.module.js
       header.tpl.html
+    home/
+      home.tpl.html
     app.module.js
     main.tpl.html
   configs/
@@ -87,14 +90,17 @@ src/
   favicon.ico
   index.html
 test/
+  e2e/
+    scenarios.js
   unit/
     header/
       header.controller.spec.js
-  e2e/
-    scenarios.js
+bower.json
 build.config.js
 gulpfile.js
 karma.config.js
+package.json
+protractor.conf.js
 ```
 
 ## Testing
