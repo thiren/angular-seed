@@ -27,7 +27,7 @@ var pngquant = require('imagemin-pngquant');
 var rev = require('gulp-rev');
 var config = require('./build.config.js');
 
-var environment = 'dev';
+var environment = 'development';
 if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLowerCase()) > -1) {
     environment = argv.env.toLowerCase();
 }
@@ -231,14 +231,14 @@ gulp.task('start', function () {
 });
 
 function shouldRevision() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development' || environment === 'localqa') {
         return false;
     }
     return true;
 }
 
 function shouldMinify() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development' || environment === 'localqa') {
         return false;
     }
     return true;
