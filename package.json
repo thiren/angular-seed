@@ -70,7 +70,7 @@
     "karma-sinon-chai": "1.1.0",
     "main-bower-files": "2.11.1",
     "mocha": "2.4.5",
-    "protractor": "3.0.0",
+    "protractor": "3.1.0",
     "yargs": "3.32.0"
   }
 }
