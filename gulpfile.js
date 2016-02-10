@@ -250,7 +250,7 @@ gulp.task('test:clean', function (callback) {
     var options = {
         force: true
     };
-    del(config.testFiles, options).then(function (paths) {
+    del(config.tempFiles, options).then(function (paths) {
         console.log('Deleted generated test files/folders:\n', paths.join('\n'));
         callback();
     });
