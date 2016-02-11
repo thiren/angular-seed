@@ -27,7 +27,7 @@ var pngquant = require('imagemin-pngquant');
 var rev = require('gulp-rev');
 var config = require('./build.config.js');
 
-var environment = 'dev';
+var environment = 'development';
 if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLowerCase()) > -1) {
     environment = argv.env.toLowerCase();
 }
@@ -231,15 +231,58 @@ gulp.task('start', function () {
 });
 
 function shouldRevision() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development' || environment === 'localqa') {
         return false;
     }
     return true;
 }
 
 function shouldMinify() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development' || environment === 'localqa') {
         return false;
     }
     return true;
 }
+
+gulp.task('test:build', ['test:clean', 'test:constants', 'test:html']);
+
+gulp.task('test:clean', function (callback) {
+    var options = {
+        force: true
+    };
+    del(config.tempFiles, options).then(function (paths) {
+        console.log('Deleted generated test files/folders:\n', paths.join('\n'));
+        callback();
+    });
+});
+
+gulp.task('test:constants', ['test:clean'], function () {
+    var options = {
+        environment: 'test',
+        createModule: true,
+        wrap: '(function () {\n <%= module %> \n})();'
+    };
+    return gulp.src(config.appFiles.constants)
+        .pipe(gulpNgConfig(config.names.constantsModule, options))
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(gulp.dest(config.outputPaths.testDependencies));
+});
+
+gulp.task('test:html', ['test:clean'], function () {
+    var htmlminOptions = {
+        collapseWhitespace: true,
+        removeComments: true
+    };
+    var options = {
+        standalone: true,
+        module: config.names.templatesModule,
+        moduleSystem: 'IIFE'
+    };
+    return gulp.src(config.appFiles.html)
+        .pipe(htmlmin(htmlminOptions))
+        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(gulp.dest(config.outputPaths.testDependencies))
+});
