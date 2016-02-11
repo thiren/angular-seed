@@ -27,21 +27,16 @@
         $stateProvider
             .state('app', {
                 url: "",
-                abstract: true,
-                views: {
-                    "main@": {
-                        templateUrl: "main.tpl.html"
-                    }
-                }
+                abstract: true
             })
             .state('app.home', {
                 url: "/home",
                 views: {
-                    "header@app": {
+                    "header@": {
                         templateUrl: "header/header.tpl.html",
                         controller: 'HeaderCtrl'
                     },
-                    "content@app": {
+                    "content@": {
                         templateUrl: "home/home.tpl.html"
                     }
                 }
