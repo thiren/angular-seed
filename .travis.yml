@@ -34,12 +34,18 @@ install:
   - npm config set loglevel http
   # Install npm dependencies and ensure that npm cache is not stale
   - npm install
-  - npm run update-webdriver
   - node_modules/.bin/bower install
+  - npm run update-webdriver
+
+before_script:
+  - node_modules/.bin/gulp lint
+  - node_modules/.bin/gulp test:build
+  - node_modules/.bin/karma start karma.conf.js
 
 script:
   - node_modules/.bin/gulp --env=production
-  - node_modules/.bin/karma start karma.conf.js
+
+after_script:
   - node_modules/.bin/gulp start &
-  - sleep 5
+  - sleep 2
   - node_modules/.bin/protractor protractor.conf.js --browser=firefox
