@@ -106,7 +106,7 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-js', ['constants'], function () {
-    gulp.src(config.appFiles.js)
+    return gulp.src(config.appFiles.js)
         .pipe(ngAnnotate())
         .pipe(angularFilesort())
         .pipe(babel({presets: ['es2015']}))
