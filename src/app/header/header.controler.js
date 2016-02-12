@@ -12,6 +12,6 @@
         });
         $scope.vm = {
             header: 'Header'
-        }
+        };
     }
 })();

@@ -1,8 +1,8 @@
 'use strict';
-var util = require('util');
-var gulp = require('gulp');
-var concat = require('gulp-concat');
 var del = require('del');
+var gulp = require('gulp');
+var rev = require('gulp-rev');
+var concat = require('gulp-concat');
 var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
@@ -16,7 +16,7 @@ var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
 var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
-var jsHint = require('gulp-jshint');
+var jshint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
@@ -24,7 +24,6 @@ var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
-var rev = require('gulp-rev');
 var config = require('./build.config.js');
 
 var environment = 'development';
@@ -34,8 +33,8 @@ if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLower
 
 gulp.task('lint', function () {
     return gulp.src(config.taskFiles.jshint)
-        .pipe(jsHint())
-        .pipe(jsHint.reporter('default'));
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('clean', function (callback) {
@@ -106,9 +105,9 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-js', ['constants'], function () {
-    gulp.src(config.appFiles.js)
-        .pipe(ngAnnotate())
+    return gulp.src(config.appFiles.js)
         .pipe(angularFilesort())
+        .pipe(ngAnnotate())
         .pipe(babel({presets: ['es2015']}))
         .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
