@@ -80,7 +80,6 @@ src/
     home/
       home.tpl.html
     app.module.js
-    main.tpl.html
   configs/
     constants.json
   fonts/
