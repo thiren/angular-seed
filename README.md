@@ -73,6 +73,8 @@ Now browse to the app at `http://localhost:9000`.
 ```
 src/
   app/
+    footer/
+      footer.tpl.html
     header/
       header.controller.js
       header.module.js
