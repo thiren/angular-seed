@@ -4,11 +4,6 @@
       "debugInfoEnabled": true
     }
   },
-  "localqa": {
-    "configs": {
-      "debugInfoEnabled": true
-    }
-  },
   "qa": {
     "configs": {
       "debugInfoEnabled": false

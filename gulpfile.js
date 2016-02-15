@@ -230,14 +230,14 @@ gulp.task('start', function () {
 });
 
 function shouldRevision() {
-    if (environment === 'development' || environment === 'localqa') {
+    if (environment === 'development') {
         return false;
     }
     return true;
 }
 
 function shouldMinify() {
-    if (environment === 'development' || environment === 'localqa') {
+    if (environment === 'development') {
         return false;
     }
     return true;
