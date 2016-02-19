@@ -76,6 +76,7 @@ gulp.task('less', function () {
 gulp.task('html', function () {
     var htmlminOptions = {
         collapseWhitespace: true,
+        conservativeCollapse: true,
         removeComments: true
     };
     var options = {
@@ -271,6 +272,7 @@ gulp.task('test:constants', ['test:clean'], function () {
 gulp.task('test:html', ['test:clean'], function () {
     var htmlminOptions = {
         collapseWhitespace: true,
+        conservativeCollapse: true,
         removeComments: true
     };
     var options = {
