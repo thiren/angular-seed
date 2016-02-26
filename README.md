@@ -57,10 +57,10 @@ npm install -g gulp
 We have preconfigured the project with a build process and a simple development web server. This build process is written using the [Gulp][gulp] build system. The simplest way to build the application and start this server is:
 
 ```
-gulp watch --env=dev
+gulp watch --env=development
 ```
 
-The `--env=dev` tells the build process that we want to build the application for the `dev` environment. The build process can be executed using four different environments: `dev`, `qa`, `localqa` or `production`. The build process will differ depending on which environment is specified when running the build. 
+The `--env=development` tells the build process that we want to build the application for the `development` environment. The build process can be executed using four different environments: `development`, `qa`, `production` or `test`. The build process will differ depending on which environment is specified when running the build. 
 
 You should find that you have one new folder in your project.
 
@@ -73,6 +73,8 @@ Now browse to the app at `http://localhost:9000`.
 ```
 src/
   app/
+    footer/
+      footer.tpl.html
     header/
       header.controller.js
       header.module.js
@@ -80,7 +82,6 @@ src/
     home/
       home.tpl.html
     app.module.js
-    main.tpl.html
   configs/
     constants.json
   fonts/
