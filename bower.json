@@ -37,7 +37,6 @@
   "overrides": {
     "bootstrap": {
       "main": [
-        "./dist/css/bootstrap.css",
         "./dist/fonts/glyphicons-halflings-regular.eot",
         "./dist/fonts/glyphicons-halflings-regular.svg",
         "./dist/fonts/glyphicons-halflings-regular.ttf",
