@@ -1,5 +1,5 @@
 module.exports = {
-    environments: ['development', 'localqa', 'qa', 'production', 'test'],
+    environments: ['development', 'qa', 'production', 'test'],
     appFiles: {
         js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
