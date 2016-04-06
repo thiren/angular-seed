@@ -35,13 +35,13 @@ We have two kinds of dependencies in this project: tools and client-side framewo
 * We get the tools we depend upon via `npm`, the [node package manager][npm]
 * We get the client-side framework code via `bower`, a [front-end package manager][bower]
 
-We have preconfigured `npm` to automatically run `bower` so we can simply do:
+You can install all of the required dependencies by running the command below:
 
 ```
-npm install
+npm run setup
 ```
 
-Behind the scenes this will also call `bower install`. You should find that you have two new folders in your project.
+Behind the scenes this will call `npm install` followed by `bower install`. You should find that you have two new folders in your project.
 
 * `node_modules` - contains the npm packages for the tools we need
 * `bower_components` - contains the client-side framework files
