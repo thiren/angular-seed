@@ -4,12 +4,11 @@
   "description": "A project seed for new angular 1.x applications",
   "main": "index.html",
   "scripts": {
-    "postinstall": "bower install",
-    "prestart": "npm install",
+    "setup": "npm install",
+    "postsetup": "bower install",
     "start": "gulp watch --env=development",
-    "pretest": "npm install | gulp test:build",
+    "pretest": "gulp test:build",
     "test": "karma start karma.conf.js",
-    "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor"
