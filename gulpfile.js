@@ -1,8 +1,8 @@
 'use strict';
-var util = require('util');
-var gulp = require('gulp');
-var concat = require('gulp-concat');
 var del = require('del');
+var gulp = require('gulp');
+var rev = require('gulp-rev');
+var concat = require('gulp-concat');
 var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
@@ -16,7 +16,7 @@ var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
 var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
-var jsHint = require('gulp-jshint');
+var jshint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
@@ -24,18 +24,17 @@ var babel = require('gulp-babel');
 var htmlmin = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
-var rev = require('gulp-rev');
 var config = require('./build.config.js');
 
-var environment = 'dev';
+var environment = 'development';
 if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLowerCase()) > -1) {
     environment = argv.env.toLowerCase();
 }
 
 gulp.task('lint', function () {
     return gulp.src(config.taskFiles.jshint)
-        .pipe(jsHint())
-        .pipe(jsHint.reporter('default'));
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('clean', function (callback) {
@@ -77,6 +76,7 @@ gulp.task('less', function () {
 gulp.task('html', function () {
     var htmlminOptions = {
         collapseWhitespace: true,
+        conservativeCollapse: true,
         removeComments: true
     };
     var options = {
@@ -106,9 +106,9 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-js', ['constants'], function () {
-    gulp.src(config.appFiles.js)
-        .pipe(ngAnnotate())
+    return gulp.src(config.appFiles.js)
         .pipe(angularFilesort())
+        .pipe(ngAnnotate())
         .pipe(babel({presets: ['es2015']}))
         .pipe(concat(config.names.output.appJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
@@ -231,15 +231,59 @@ gulp.task('start', function () {
 });
 
 function shouldRevision() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development') {
         return false;
     }
     return true;
 }
 
 function shouldMinify() {
-    if (environment === 'dev' || environment === 'localqa') {
+    if (environment === 'development') {
         return false;
     }
     return true;
 }
+
+gulp.task('test:build', ['test:clean', 'test:constants', 'test:html']);
+
+gulp.task('test:clean', function (callback) {
+    var options = {
+        force: true
+    };
+    del(config.tempFiles, options).then(function (paths) {
+        console.log('Deleted generated test files/folders:\n', paths.join('\n'));
+        callback();
+    });
+});
+
+gulp.task('test:constants', ['test:clean'], function () {
+    var options = {
+        environment: 'test',
+        createModule: true,
+        wrap: '(function () {\n <%= module %> \n})();'
+    };
+    return gulp.src(config.appFiles.constants)
+        .pipe(gulpNgConfig(config.names.constantsModule, options))
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(gulp.dest(config.outputPaths.testDependencies));
+});
+
+gulp.task('test:html', ['test:clean'], function () {
+    var htmlminOptions = {
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+        removeComments: true
+    };
+    var options = {
+        standalone: true,
+        module: config.names.templatesModule,
+        moduleSystem: 'IIFE'
+    };
+    return gulp.src(config.appFiles.html)
+        .pipe(htmlmin(htmlminOptions))
+        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(gulp.dest(config.outputPaths.testDependencies))
+});

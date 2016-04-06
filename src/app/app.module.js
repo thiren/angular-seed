@@ -28,20 +28,20 @@
             .state('app', {
                 url: "",
                 abstract: true,
-                views: {
-                    "main@": {
-                        templateUrl: "main.tpl.html"
+                views :{
+                    "header@": {
+                        templateUrl: "header/header.tpl.html",
+                        controller: 'HeaderCtrl'
+                    },
+                    "footer@": {
+                        templateUrl: "footer/footer.tpl.html"
                     }
                 }
             })
             .state('app.home', {
                 url: "/home",
                 views: {
-                    "header@app": {
-                        templateUrl: "header/header.tpl.html",
-                        controller: 'HeaderCtrl'
-                    },
-                    "content@app": {
+                    "content@": {
                         templateUrl: "home/home.tpl.html"
                     }
                 }

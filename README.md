@@ -35,13 +35,13 @@ We have two kinds of dependencies in this project: tools and client-side framewo
 * We get the tools we depend upon via `npm`, the [node package manager][npm]
 * We get the client-side framework code via `bower`, a [front-end package manager][bower]
 
-We have preconfigured `npm` to automatically run `bower` so we can simply do:
+You can install all of the required dependencies by running the command below:
 
 ```
-npm install
+npm run setup
 ```
 
-Behind the scenes this will also call `bower install`. You should find that you have two new folders in your project.
+Behind the scenes this will call `npm install` followed by `bower install`. You should find that you have two new folders in your project.
 
 * `node_modules` - contains the npm packages for the tools we need
 * `bower_components` - contains the client-side framework files
@@ -57,10 +57,10 @@ npm install -g gulp
 We have preconfigured the project with a build process and a simple development web server. This build process is written using the [Gulp][gulp] build system. The simplest way to build the application and start this server is:
 
 ```
-gulp watch --env=dev
+gulp watch --env=development
 ```
 
-The `--env=dev` tells the build process that we want to build the application for the `dev` environment. The build process can be executed using four different environments: `dev`, `qa`, `localqa` or `production`. The build process will differ depending on which environment is specified when running the build. 
+The `--env=development` tells the build process that we want to build the application for the `development` environment. The build process can be executed using four different environments: `development`, `qa`, `production` or `test`. The build process will differ depending on which environment is specified when running the build. 
 
 You should find that you have one new folder in your project.
 
@@ -73,11 +73,15 @@ Now browse to the app at `http://localhost:9000`.
 ```
 src/
   app/
+    footer/
+      footer.tpl.html
     header/
       header.controller.js
+      header.module.js
       header.tpl.html
+    home/
+      home.tpl.html
     app.module.js
-    main.tpl.html
   configs/
     constants.json
   fonts/
@@ -87,14 +91,17 @@ src/
   favicon.ico
   index.html
 test/
+  e2e/
+    scenarios.js
   unit/
     header/
       header.controller.spec.js
-  e2e/
-    scenarios.js
+bower.json
 build.config.js
 gulpfile.js
 karma.config.js
+package.json
+protractor.conf.js
 ```
 
 ## Testing

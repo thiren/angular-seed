@@ -1,5 +1,5 @@
 module.exports = {
-    environments: ['dev', 'localqa', 'qa', 'production', 'test'],
+    environments: ['development', 'qa', 'production', 'test'],
     appFiles: {
         js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
@@ -23,6 +23,7 @@ module.exports = {
         jshint: ['./src/app/**/*.js']
     },
     buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js'],
+    tempFiles: ['./temp'],
     outputPaths: {
         js: './build/scripts',
         css: './build/css',
@@ -31,6 +32,7 @@ module.exports = {
         root: './build',
         constants: './src/configs',
         templates: './build/scripts',
+        testDependencies: './temp',
         injectIgnoreString: '/build'
     },
     names: {
