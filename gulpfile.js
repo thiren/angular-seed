@@ -188,8 +188,7 @@ gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
     });
     var options = {
         ignorePath: config.outputPaths.injectIgnoreString,
-        addRootSlash: false,
-        read: false
+        addRootSlash: false
     };
     console.log('Environment: %s', environment);
     return gulp.src(config.appFiles.index)
