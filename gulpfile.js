@@ -118,6 +118,7 @@ gulp.task('app-js', ['constants'], function () {
 });
 
 gulp.task('vendor-js', function () {
+    var vendorJsSourceFiles = gulp.src(config.vendorFiles.js);
     var options = {
         filter: '**/*.js',
         debugging: false
@@ -125,8 +126,7 @@ gulp.task('vendor-js', function () {
     var mainBowerSourceFiles = gulp.src(mainBowerFiles(options), {
         base: 'bower_components'
     });
-    var vendorJsSourceFiles = gulp.src(config.vendorFiles.js);
-    return eventStream.merge(mainBowerSourceFiles, vendorJsSourceFiles)
+    return eventStream.merge(vendorJsSourceFiles, mainBowerSourceFiles)
         .pipe(ngAnnotate())
         .pipe(concat(config.names.output.vendorJs))
         .pipe(gulpIf(shouldMinify(), uglify()))
