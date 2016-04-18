@@ -22,6 +22,9 @@ cache:
   - node_modules
   - bower_components
 
+before_install:
+  - gem install bundler
+
 install:
   # Enable browser testing
   - export DISPLAY=:99.0
