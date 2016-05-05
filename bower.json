@@ -24,7 +24,7 @@
     "angular-aria": "1.5.5",
     "angular-messages": "1.5.5",
     "angular-resource": "1.5.5",
-    "angular-material": "1.0.5",
+    "angular-material": "1.0.8",
     "angular-ui-router": "ui-router#~0.2.18"
   },
   "devDependencies": {
