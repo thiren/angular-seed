@@ -52,12 +52,12 @@ module.exports = function(config){
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: true,
 
-        browsers : ['PhantomJS2'],
+        browsers : ['PhantomJS'],
 
         concurrency: 1,
 
         plugins : [
-            'karma-phantomjs2-launcher',
+            'karma-phantomjs-launcher',
             'karma-mocha',
             'karma-mocha-reporter',
             'karma-chai',
