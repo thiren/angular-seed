@@ -1,6 +1,6 @@
 module.exports = function(config){
     config.set({
-        frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
+        frameworks: ['mocha', 'chai', 'sinon'],
 
         basePath : './',
 
@@ -62,7 +62,6 @@ module.exports = function(config){
             'karma-mocha-reporter',
             'karma-chai',
             'karma-sinon',
-            'karma-sinon-chai',
             'karma-coverage'
         ]
     });

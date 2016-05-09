@@ -67,7 +67,6 @@
     "karma-mocha-reporter": "2.0.2",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-sinon": "1.0.5",
-    "karma-sinon-chai": "1.2.0",
     "main-bower-files": "2.13.0",
     "mocha": "2.4.5",
     "phantomjs-prebuilt": "2.1.7",
