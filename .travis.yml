@@ -2,19 +2,16 @@ language: node_js
 sudo: true
 node_js:
 - '6'
-
 branches:
   only:
   - master
   - "/^core\\/.+$/"
-
 addons:
   firefox: latest
 cache:
   directories:
   - node_modules
   - bower_components
-
 install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
@@ -24,25 +21,21 @@ install:
 - npm install
 - node_modules/.bin/bower install
 - npm run update-webdriver
-
 before_script:
 - node_modules/.bin/gulp lint
 - node_modules/.bin/gulp test:build
 - node_modules/.bin/karma start karma.conf.js
-
 script:
 - node_modules/.bin/gulp --env=production
-
 after_script:
 - node_modules/.bin/gulp start &
 - sleep 2
 - node_modules/.bin/protractor protractor.conf.js --browser=firefox
-
 deploy:
   provider: heroku
-  buildpack: nodejs
   api_key:
-    secure: bE6KnZGTbhnJinuctdIykFYM7Gq1BMaBNh3m8mjYv2AQrpcoJcH1sI+iHTYNZFnsjbqVCU9kDW8QtPynZhoSpfvbbRPrNzAYrC/Ixw+C6W624ogq7Yjj8HHrUywp1O3TCl3sxS1DETxnyutZ8xoilOby/LYUgjG7bcq+wrok35+UxDLt9nNFyfZn/CyKrg1E1voPak5bz95NVEKJQiYqsJGPQmUKkpVrwiiFM8SaZHdFTFG5UFcQ0XeZ+7Koym55U1k3ZI8kVbEhWArRvFcI/YL2evjepgYztLvI3ct0Q6Ugs+y4szUNca6AIJilHFiwnBWPUL6y/2e0iplg2q9tANT3yhNdhqSiH1JD5uOOxSTW6RnGoJLrHs51zUBUpqL6VcmsVdgvyAHBH6EdXXJgHsLYa6mleRrMenyU/tTDSp2A2Dqit6IiFSL2i8wChDJN/8KIefRmCsVlFJkBr8Xq3aGYgC+QlJNnlcuosa5Mg6OrEiKymLF1K/6PzB5WLc0UtuUYV9khcGJ3RT6rDi7dnqvc52uTQprOQ2PsXNypowliBSD/2bIKtER5SuSbHI4k4AS7aelhOD9xL8e90IbCBIF/1lNi49pCSalnkbo7hLiVJcqs0U8qfsxQ5EITwsJ92KQuD4KaWvGNlZ0z4z8bwBRv5H89869DFvlllUtkJnw=
-  skip_cleanup: true
+    secure: JYsXorIhe8uJrZvLIqJ7CCWc3n2Hv7ngGEZ0nGTtF+OI4aEgn/z8hJ0hj8MVq9Kc49FYmoXaUJj9nQE9Kp1jngMEMlKJiPpeDGCiBwWfwVCp42bxWg/FJBHg+/L/rczTSn7vMwN/C0oGcFtOIZPU36d/l4Uqz/7dMxZOG4HMwEplx2xd7DdTXaFCoXp67k+LwhE+qEBnUfZ74v8tigNQSDaKXHFgBmBj1LPkcuj6FGFAMEKoH7qguQbG5LX0OnQslqInsLvRqSG0Ae1Z0iJTsFpRSEV1qQY3ZyWxv6mdLkKpNBtTKxY2oKZPEMeZAEeJkhZaT5WuY90iPC7mcLAnkaDr3ZG0cIXQ4ExHEhGHRglmHJrqKPcLVsVFWc/9WxYUys59dUwhQglzJ8x5ai1LcBiF7LmWFGP3XquMap7n7yFaKyfNGa3lkYO7KoyqhZvSk0GKSXLWX3FDLdrghRnkd3BwcZ3SmuqNYYy++4SB4oj3HaG1OeJPYN3AnkCCP4GS/CbZDs4xKU2tZB5zqzdCjeVutgvh4LuLXEvAkQvsyRq1MEkSKCWiAwwyCbmTMsSoDyhXm3bsama78QB2bjvPE9yBcmgXi9mEqZCZ23cCYldS0GtEG/BAjPAQ+AA+QkHRZCrauk9ru67U707LhiLTBN2Si8lDGvmAoYBaBZvIRXU=
   app: angular-see
-  on: core/heroku-deployment
+  on:
+    repo: thiren/angular-seed
+    branch: core/heroku-deployment
