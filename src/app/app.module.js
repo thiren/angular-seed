@@ -6,6 +6,7 @@
             'ngAria',
             'ngMessages',
             'ngResource',
+            'ui.bootstrap',
             'ui.router',
             'angularSeed.templates',
             'angularSeed.constants',
