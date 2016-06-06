@@ -1,5 +1,4 @@
 build/**
 test/**
-tests/**
 bower_components/**
 node_modules/**

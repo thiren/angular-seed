@@ -3,6 +3,7 @@ var del = require('del');
 var gulp = require('gulp');
 var rev = require('gulp-rev');
 var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
@@ -16,7 +17,6 @@ var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
 var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
-var jshint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
@@ -32,9 +32,10 @@ if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLower
 }
 
 gulp.task('lint', function () {
-    return gulp.src(config.taskFiles.jshint)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+    return gulp.src(config.taskFiles.eslint)
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('clean', function (callback) {

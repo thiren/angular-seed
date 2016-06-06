@@ -20,7 +20,7 @@ module.exports = {
         ]
     },
     taskFiles: {
-        jshint: ['./src/app/**/*.js']
+        eslint: ['./src/app/**/*.js']
     },
     buildFiles: ['./build/**/*.*', './build/*', './src/configs/*.js'],
     tempFiles: ['./temp'],
