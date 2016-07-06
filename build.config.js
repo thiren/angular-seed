@@ -10,6 +10,7 @@ module.exports = {
         fonts: ['./src/fonts/**/*.*'],
         constants: './src/configs/constants.json',
         favicon: './src/favicon.ico',
+        manifest: './src/manifest.json',
         staticFiles: ['./web.config', '.src/unsupported-browser.html'],
         bowerRoot: './bower_components'
     },
