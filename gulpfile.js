@@ -3,6 +3,7 @@ var del = require('del');
 var gulp = require('gulp');
 var rev = require('gulp-rev');
 var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 var inject = require('gulp-inject');
 var cssnano = require('gulp-cssnano');
 var uglify = require('gulp-uglify');
@@ -16,7 +17,6 @@ var mainBowerFiles = require('main-bower-files');
 var gulpSync = require('gulp-sync')(gulp);
 var wait = require('gulp-wait');
 var autoprefixer = require('gulp-autoprefixer');
-var jshint = require('gulp-jshint');
 var gulpIf = require('gulp-if');
 var connect = require('gulp-connect');
 var angularFilesort = require('gulp-angular-filesort');
@@ -31,10 +31,29 @@ if (typeof argv.env === 'string' && config.environments.indexOf(argv.env.toLower
     environment = argv.env.toLowerCase();
 }
 
+var htmlminOptions = {
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    removeComments: true
+};
+
+var templateCacheOptions = {
+    standalone: true,
+    module: config.names.templatesModule,
+    moduleSystem: 'IIFE'
+};
+
+var gulpNgConfigOptions = {
+    environment: environment,
+    createModule: true,
+    wrap: '(function () {\n <%= module %> \n})();'
+};
+
 gulp.task('lint', function () {
-    return gulp.src(config.taskFiles.jshint)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+    return gulp.src(config.taskFiles.eslint)
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('clean', function (callback) {
@@ -48,13 +67,8 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('constants', function () {
-    var options = {
-        environment: environment,
-        createModule: true,
-        wrap: '(function () {\n <%= module %> \n})();'
-    };
     return gulp.src(config.appFiles.constants)
-        .pipe(gulpNgConfig(config.names.constantsModule, options))
+        .pipe(gulpNgConfig(config.names.constantsModule, gulpNgConfigOptions))
         .pipe(gulp.dest(config.outputPaths.constants));
 });
 
@@ -74,19 +88,9 @@ gulp.task('less', function () {
 });
 
 gulp.task('html', function () {
-    var htmlminOptions = {
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        removeComments: true
-    };
-    var options = {
-        standalone: true,
-        module: config.names.templatesModule,
-        moduleSystem: 'IIFE'
-    };
     return gulp.src(config.appFiles.html)
         .pipe(htmlmin(htmlminOptions))
-        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(templateCache(config.names.output.templatesJs, templateCacheOptions))
         .pipe(gulpIf(shouldMinify(), uglify()))
         .pipe(gulpIf(shouldRevision(), rev()))
         .pipe(gulp.dest(config.outputPaths.templates))
@@ -156,6 +160,11 @@ gulp.task('favicon', function () {
         .pipe(gulp.dest(config.outputPaths.root));
 });
 
+gulp.task('manifest', function () {
+    return gulp.src(config.appFiles.manifest)
+        .pipe(gulp.dest(config.outputPaths.root));
+});
+
 gulp.task('images', function () {
     var options = {
         optimizationLevel: 3,
@@ -195,13 +204,14 @@ gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
         .pipe(wait(1000))
         .pipe(inject(cssFiles, options))
         .pipe(inject(jsFiles, options))
+        .pipe(htmlmin(htmlminOptions))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
 
 gulp.task('default', ['build-index']);
 
-gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'images']);
+gulp.task('work', ['html', 'vendor-css', 'less', 'vendor-js', 'app-js', 'static-font', 'font', 'favicon', 'manifest', 'images']);
 
 gulp.task('watch', ['build-index', 'connect'], function () {
     gulp.watch(config.watch.less, ['less']);
@@ -256,32 +266,17 @@ gulp.task('test:clean', function (callback) {
 });
 
 gulp.task('test:constants', ['test:clean'], function () {
-    var options = {
-        environment: 'test',
-        createModule: true,
-        wrap: '(function () {\n <%= module %> \n})();'
-    };
     return gulp.src(config.appFiles.constants)
-        .pipe(gulpNgConfig(config.names.constantsModule, options))
+        .pipe(gulpNgConfig(config.names.constantsModule, gulpNgConfigOptions))
         .pipe(uglify())
         .pipe(rev())
         .pipe(gulp.dest(config.outputPaths.testDependencies));
 });
 
 gulp.task('test:html', ['test:clean'], function () {
-    var htmlminOptions = {
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        removeComments: true
-    };
-    var options = {
-        standalone: true,
-        module: config.names.templatesModule,
-        moduleSystem: 'IIFE'
-    };
     return gulp.src(config.appFiles.html)
         .pipe(htmlmin(htmlminOptions))
-        .pipe(templateCache(config.names.output.templatesJs, options))
+        .pipe(templateCache(config.names.output.templatesJs, templateCacheOptions))
         .pipe(uglify())
         .pipe(rev())
         .pipe(gulp.dest(config.outputPaths.testDependencies))
