@@ -5,11 +5,10 @@ describe('angularSeed.header module', function() {
     beforeEach(module('angularSeed.header'));
 
     describe('HeaderCtrl', function(){
-        var scope, ctrl;
+        var ctrl;
 
         beforeEach(inject(function($rootScope, $controller) {
-            scope = $rootScope.$new();
-            ctrl = $controller('HeaderCtrl', {$scope: scope});
+            ctrl = $controller('HeaderCtrl', {});
         }));
 
         it('should be defined', inject(function() {

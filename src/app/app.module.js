@@ -32,7 +32,8 @@
                 views :{
                     "header@": {
                         templateUrl: "header/header.tpl.html",
-                        controller: 'HeaderCtrl'
+                        controller: 'HeaderCtrl',
+                        controllerAs: 'vm'
                     },
                     "footer@": {
                         templateUrl: "footer/footer.tpl.html"
