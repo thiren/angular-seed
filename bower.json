@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/thiren/angular-seed",
   "authors": [
-    "Thiren Bunsee <thirenbunsee@gmail.com>"
+    "Thiren Bunsee"
   ],
   "description": "A project seed for new angular 1.x applications",
   "main": "index.html",
