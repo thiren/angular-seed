@@ -1,33 +1,24 @@
-module.exports = function(config){
+module.exports = function (config) {
     config.set({
         frameworks: ['mocha', 'chai', 'sinon'],
 
-        basePath : './',
+        basePath: './',
 
-        files : [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-aria/angular-aria.js',
-            'bower_components/angular-resource/angular-resource.js',
-            'bower_components/angular-messages/angular-messages.js',
-            'bower_components/angular-ui-router/release/angular-ui-router.js',
+        files: [
+            'temp/vendor.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            'temp/**/*.js',
-            'src/app/app.module.js',
-            'src/app/**/*.module.js',
-            'src/app/**/*.js',
+            'temp/templates.js',
+            'temp/main.js',
             'src/app/**/*.spec.js',
             'test/unit/**/*.spec.js'
         ],
 
-        exclude: [
-            'src/app/app.module.js'
-        ],
+        exclude: [],
 
         //logLevel: config.LOG_DEBUG,
 
         preprocessors: {
-            'src/app/**/*.js': ['coverage']
+            'temp/main.js': ['coverage']
         },
 
         reporters: ['mocha', 'coverage'],
@@ -35,7 +26,7 @@ module.exports = function(config){
         coverageReporter: {
             dir: 'coverage/',
             reporters: [
-                { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+                {type: 'text-summary', subdir: '.', file: 'text-summary.txt'}
             ]
         },
 
@@ -46,17 +37,17 @@ module.exports = function(config){
         colors: true,
 
         // enable / disable watching file and executing tests on file changes
-        autoWatch : false,
+        autoWatch: false,
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: true,
 
-        browsers : ['PhantomJS'],
+        browsers: ['PhantomJS'],
 
         concurrency: 1,
 
-        plugins : [
+        plugins: [
             'karma-phantomjs-launcher',
             'karma-mocha',
             'karma-mocha-reporter',
