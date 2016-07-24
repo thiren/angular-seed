@@ -7,6 +7,7 @@ module.exports = function (config) {
         files: [
             'temp/vendor.js',
             'bower_components/angular-mocks/angular-mocks.js',
+            'temp/constants.js',
             'temp/templates.js',
             'temp/main.js',
             'src/app/**/*.spec.js',
