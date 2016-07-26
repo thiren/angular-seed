@@ -3,6 +3,12 @@
 
 [EditorConfig](http://editorconfig.org/) is a file format and collection of text editor plugins for maintaining consistent coding styles between different editors and IDEs.
 
+## bower.json
+
+A [bower.json](https://docs.npmjs.com/files/package.json) file is used to specify project front-end dependencies from [bower](https://bower.io/). When you run `bower install`, `bower.json` is read to discover what packages need to be installed. 
+
+`bower.json` can also contain other metadata such as a project description, version, license and configuration information.
+
 ## gulpfile.js
 
 [Gulp](http://gulpjs.com) is a streaming build system that allows you to automate tedious development tasks. Compared with other build systems, such as Grunt, gulp uses Node.js streams as a means to automate tasks, thereby removing the need to create intermediate files when transforming source files. 
