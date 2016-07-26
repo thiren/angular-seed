@@ -1,5 +1,6 @@
 module.exports = {
     environments: ['development', 'qa', 'production', 'test'],
+    port: 8080,
     appFiles: {
         js: ['./src/app/**/*.js', './src/configs/**/*.js', '!./src/app/**/*.spec.js'],
         css: './src/app/**/*.css',
@@ -41,9 +42,9 @@ module.exports = {
         templatesModule: 'angularSeed.templates',
         constantsModule: 'angularSeed.constants',
         output: {
-            appCss: 'build.css',
+            appCss: 'main.css',
             vendorCss: 'vendor.css',
-            appJs: 'build.js',
+            appJs: 'main.js',
             vendorJs: 'vendor.js',
             templatesJs: 'templates.js'
         }
