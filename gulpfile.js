@@ -204,7 +204,7 @@ gulp.task('build-index', gulpSync.sync(['clean', 'work']), function () {
         .pipe(wait(1000))
         .pipe(inject(cssFiles, options))
         .pipe(inject(jsFiles, options))
-        .pipe(htmlmin(htmlminOptions))
+        .pipe(gulpIf(shouldMinify(), htmlmin(htmlminOptions)))
         .pipe(gulp.dest(config.outputPaths.root))
         .pipe(connect.reload());
 });
