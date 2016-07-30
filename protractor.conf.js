@@ -11,7 +11,7 @@ exports.config = {
         browserName: 'chrome'
     },
 
-    baseUrl: 'http://localhost:9000',
+    baseUrl: 'http://localhost:8080',
 
     onPrepare: function() {
         // Disable animations so e2e tests run more quickly
