@@ -23,28 +23,28 @@
         $locationProvider.hashPrefix('!');
         $urlMatcherFactoryProvider.caseInsensitive(true);
         $urlMatcherFactoryProvider.strictMode(false);
-        $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise('/home');
 
         $stateProvider
             .state('app', {
-                url: "",
+                url: '',
                 abstract: true,
                 views :{
-                    "header@": {
-                        templateUrl: "header/header.tpl.html",
+                    'header@': {
+                        templateUrl: 'header/header.tpl.html',
                         controller: 'HeaderCtrl',
                         controllerAs: 'vm'
                     },
-                    "footer@": {
-                        templateUrl: "footer/footer.tpl.html"
+                    'footer@': {
+                        templateUrl: 'footer/footer.tpl.html'
                     }
                 }
             })
             .state('app.home', {
-                url: "/home",
+                url: '/home',
                 views: {
-                    "content@": {
-                        templateUrl: "home/home.tpl.html"
+                    'content@': {
+                        templateUrl: 'home/home.tpl.html'
                     }
                 }
             });
