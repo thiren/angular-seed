@@ -13,10 +13,6 @@ describe('no protractor at all', function() {
 });
 
 describe('protractor library', function() {
-    it.skip('should be able to skip tests', function() {
-        expect(true).to.equal(false);
-    });
-
     it('should expose the correct global variables', function() {
         expect(protractor).to.exist;
         expect(browser).to.exist;
